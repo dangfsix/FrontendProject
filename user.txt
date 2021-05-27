@@ -1,9 +1,0 @@
- {
-   "id": 1,
-   "username": "thang",
-   "password": 123,
-   "fullname": "Do Cong Thang"
-   "email": "181302@st.hcmuaf.edu.vn",
-   "adress":"duong 18 - linh trung- tp.thu duc"
-   "Phone":"888999458"
- }
