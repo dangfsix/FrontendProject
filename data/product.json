@@ -1,12 +1,12 @@
 [
- {
-   "productID": 1,
-   "productName": "Chảo chiên Tefal Ultimate 20cm",
-   "price": 929000,
-   "productType": "Bộ nồi và chảo",
-   "description": "Bên ngoài được phủ sơn chống dính và dễ dàng làm sạch",
-   "img1": "/data/img/1a.png",
-   "img2": "/data/img/1b.png",
-   "img3": "/data/img/1b.png"
- }
+  {
+    "id": 1,
+    "name": "Chảo chiên Tefal Ultimate 20 cm",
+    "price": 929000,
+    "category": "Bộ nồi và chảo",
+    "description": "Bên ngoài được phủ sơn chống dính và dễ dàng làm sạch.",
+    "img1": "/data/img/1a.png",
+    "img2": "/data/img/1b.png",
+    "img3": "/data/img/1c.png"
+  }
 ]
