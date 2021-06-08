@@ -1,0 +1,36 @@
+.product-img .img-wrap img {
+    height: auto;
+    max-width: 100%;
+    width: auto;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border-radius: 5px;
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+section.section__pagetop.bg {
+    background: #80808014;
+    height: 104px;
+}
+.section__content {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 2rem 0;
+}
+.section__category .card-product-grid {
+    margin-bottom: 1.5rem;
+}
+.section__feature .card {
+    border: 0;
+}
+a, .btn {
+    transition: all 0.3s ease-out 0s;
+}
+a {
+    color: var(--main);
+}
+a.title {
+    font-family: tahoma;
+}
