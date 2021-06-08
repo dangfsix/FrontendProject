@@ -16,6 +16,7 @@
     white-space: nowrap;
     z-index: 1;
 }
+
 .rating-stars {
     display: inline-block;
     vertical-align: middle;
@@ -25,11 +26,12 @@
     position: relative;
     white-space: nowrap;
     clear: both;
+   
 }
 .section__content {
     font-size: 1rem;
     font-weight: 500;
-    padding: 2rem 0;
+  
 }
 .section__product h2 {
     font-weight: bold;
@@ -185,7 +187,20 @@ var {
     border: 0;
 }
 
+section.section__pagetop.bg {
+    background:  #FAFCFC;
+    height: 60px;
+}
 
-
-
-
+section.section__pagetop.bg .padingg{
+    padding-top: 15px;
+}
+ .ratting-form-wrapper .ratting-form .form-row .star-box h5{
+   padding-right: 20px;
+ }
+.decorate{
+    margin: 5px;
+}
+.form-decorate{
+    padding: 0px;
+}

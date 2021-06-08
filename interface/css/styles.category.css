@@ -34,3 +34,6 @@ a {
 a.title {
     font-family: tahoma;
 }
+h2.title-page{
+    padding-top: 20px;
+}

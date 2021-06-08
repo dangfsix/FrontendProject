@@ -18,7 +18,7 @@
 
     <!-- Bootstrap Icons v1.5.0 -->
     <link href="css/bootstrap-icons.css" type="text/css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <!-- <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet"> -->
 
     <!-- Custom Styles -->
     <link href="css/styles.prototype.css" type="text/css" rel="stylesheet">
@@ -115,12 +115,12 @@
         </div> <!-- container .// -->
     </nav> <!-- navbar-main.// -->
 
-  
+
     <section class="section__pagetop bg">
         <div class="container">
             <h2 class="title-page">Nồi cơm điện</h2>
             <nav>
-                <ol style="display: flex;">
+                <ol class="breadcrumb">
                     <li class="breadcrumb-item text-primary" aria-current="page"><a href="#">Trang chủ</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Nồi cơm điện</li>
                 </ol>
@@ -137,68 +137,78 @@
                     <div class="card">
                         <article class="filter-group">
                             <header class="card-header">
-                                <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+                                <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true"
+                                    class="">
                                     <h6 class="title text-primary">THƯƠNG HIỆU</h6>
                                 </a>
                             </header>
-                            <div class="filter-content collapse show" id="collapse_1" style="">
+                            <div class="filter-content collapse show" id="collapse_1">
                                 <div class="card-body">
-                                    <ul class="list-menu">
-                                        <li> 
-                                            <input class="form-check-input" type="checkbox" value=""id="flexCheckChecked"checked/>
+                                    <div class="list-menu">
+                                        <div class="">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckChecked" checked />
                                             <label class="form-check-label" for="flexCheckChecked"> Sharp</label>
-                                        </li>
-                                        <li> 
-                                            <input class="form-check-input" type="checkbox" value=""id="flexCheckChecked"checked/>
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckChecked" checked />
                                             <label class="form-check-label" for="flexCheckChecked"> Toshiba</label>
-                                        </li>
-                                        <li> 
-                                            <input class="form-check-input" type="checkbox" value=""id="flexCheckChecked"checked/>
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckChecked" checked />
                                             <label class="form-check-label" for="flexCheckChecked"> Panasonic</label>
-                                        </li>
-                                        <li> 
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                          <label class="form-check-label" for="flexCheckDefault">Default checkbox</label>
-                                        </li>
-                                      </ul>
-
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckDefault" />
+                                            <label class="form-check-label" for="flexCheckDefault">Default
+                                                checkbox</label>
+                                        </div>
+                                        </divv>
+                                    </div>
+                                    <!-- card-body.// -->
                                 </div>
-                                <!-- card-body.// -->
-                            </div>
                         </article>
                         <!-- filter-group  .// -->
-                        <article class="filter-group">
-                            <header class="card-header">
-                                <a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" class="">     
+                        <article class="filter-group ">
+                            <div class="card-header">
+                                <a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true"
+                                    class="">
                                     <h6 class="title text-primary">GIÁ BÁN</h6>
                                 </a>
-                            </header>
-                            <div class="filter-content collapse show" id="collapse_1" style="">
+                            </div>
+                            <div class="filter-content collapse show" id="collapse_1">
                                 <div class="card-body">
-                                    <ul class="list-menu">
-                                        <li> 
-                                            <input class="form-check-input" type="checkbox" value=""id="flexCheckChecked"checked/>
+                                    <div class="list-menu">
+                                        <div>
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckChecked" checked />
                                             <label class="form-check-label" for="flexCheckChecked"> Dưới 1 triệu</label>
-                                        </li>
-                                        <li> 
-                                            <input class="form-check-input" type="checkbox" value=""id="flexCheckChecked"checked/>
-                                            <label class="form-check-label" for="flexCheckChecked"> Từ 1 - 2 triệu</label>
-                                        </li>
-                                        <li> 
-                                            <input class="form-check-input" type="checkbox" value=""id="flexCheckChecked"checked/>
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckChecked" checked />
+                                            <label class="form-check-label" for="flexCheckChecked"> Từ 1 - 2
+                                                triệu</label>
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="flexCheckChecked" checked />
                                             <label class="form-check-label" for="flexCheckChecked"> Trên 2 triệu</label>
-                                        </li>
-                                
-                                      </ul>
+                                        </div>
+
+                                    </div>
 
                                 </div>
                                 <!-- card-body.// -->
                             </div>
                         </article>
                         <!-- filter-group .// -->
-                     
+
                         <!-- filter-group .// -->
-                     
+
                     </div>
                     <!-- card.// -->
 
@@ -207,124 +217,160 @@
                 <main class="col-md-8 col-lg-9">
 
                     <header class="border-bottom mb-4 pb-3">
-                        <div class="form-inline">
+                        <div class="form-inline d-flex justify-content-between">
                             <span class="mr-auto">32 sản phẩm</span>
-                            <select class="mr-2 form-control">
-                        <option>Bán chạy nhất</option>
-                        <option>Mới nhất</option>
-                        <option>Đánh giá cao nhất</option>
-                        <option>Giá thấp nhất</option>
-                    </select>
-                            <div class="btn-group">
-                                <a href="#" class="btn btn-outline-secondary" data-toggle="tooltip" title="" data-original-title="List view">
-                                    <i class="bi bi-list"></i></a>
-                               
+                            <div class=" d-flex justify-content-end">
+                                <select class="">
+                                    <option>Bán chạy nhất</option>
+                                    <option>Mới nhất</option>
+                                    <option>Đánh giá cao nhất</option>
+                                    <option>Giá thấp nhất</option>
+                                </select>
+                                <div class="">
+                                    <a href="#" class="btn btn-outline-secondary" data-toggle="tooltip" title=""
+                                        data-original-title="List view">
+                                        <i class="bi bi-list"></i></a>
+                                </div>
                             </div>
+
                         </div>
                     </header>
                     <!-- sect-heading -->
 
                     <div class="section__feature row">
-                        <div class="col-6 col-lg-4">
-                            <div href="#" class="card card-product-grid">
-                                <div class="product-img">
-                                    <a href="#" class="img-wrap"> <img src="img/200x200.png"> </a>
-                                </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card p-3 mb-4">
+                                <a href="#" class="img-wrap text-center">
+                                    <img class="img-fluid" src="img/200x200.png">
+                                </a>
                                 <figcaption class="info-wrap mt-2">
                                     <a href="#" class="title">Tên một sản phẩm</a>
                                     <div class="price mt-1 fw-bold">450.000₫</div>
                                 </figcaption>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-4">
-                            <div href="#" class="card card-product-grid">
-                                <div class="product-img">
-                                    <a href="#" class="img-wrap"> <img src="img/200x200.png"> </a>
-                                </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card p-3 mb-4">
+                                <a href="#" class="img-wrap text-center">
+                                    <img class="img-fluid" src="img/200x200.png">
+                                </a>
                                 <figcaption class="info-wrap mt-2">
                                     <a href="#" class="title">Tên một sản phẩm</a>
                                     <div class="price mt-1 fw-bold">450.000₫</div>
                                 </figcaption>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-4">
-                            <div href="#" class="card card-product-grid">
-                                <div class="product-img">
-                                    <a href="#" class="img-wrap"> <img src="img/200x200.png"> </a>
-                                </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card p-3 mb-4">
+                                <a href="#" class="img-wrap text-center">
+                                    <img class="img-fluid" src="img/200x200.png">
+                                </a>
                                 <figcaption class="info-wrap mt-2">
                                     <a href="#" class="title">Tên một sản phẩm</a>
                                     <div class="price mt-1 fw-bold">450.000₫</div>
                                 </figcaption>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-4">
-                            <div href="#" class="card card-product-grid">
-                                <div class="product-img">
-                                    <a href="#" class="img-wrap"> <img src="img/200x200.png"> </a>
-                                </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card p-3 mb-4">
+                                <a href="#" class="img-wrap text-center">
+                                    <img class="img-fluid" src="img/200x200.png">
+                                </a>
                                 <figcaption class="info-wrap mt-2">
                                     <a href="#" class="title">Tên một sản phẩm</a>
                                     <div class="price mt-1 fw-bold">450.000₫</div>
                                 </figcaption>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-4">
-                            <div href="#" class="card card-product-grid">
-                                <div class="product-img">
-                                    <a href="#" class="img-wrap"> <img src="img/200x200.png"> </a>
-                                </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card p-3 mb-4">
+                                <a href="#" class="img-wrap text-center">
+                                    <img class="img-fluid" src="img/200x200.png">
+                                </a>
                                 <figcaption class="info-wrap mt-2">
                                     <a href="#" class="title">Tên một sản phẩm</a>
                                     <div class="price mt-1 fw-bold">450.000₫</div>
                                 </figcaption>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-4">
-                            <div href="#" class="card card-product-grid">
-                                <div class="product-img">
-                                    <a href="#" class="img-wrap"> <img src="img/200x200.png"> </a>
-                                </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card p-3 mb-4">
+                                <a href="#" class="img-wrap text-center">
+                                    <img class="img-fluid" src="img/200x200.png">
+                                </a>
                                 <figcaption class="info-wrap mt-2">
                                     <a href="#" class="title">Tên một sản phẩm</a>
                                     <div class="price mt-1 fw-bold">450.000₫</div>
                                 </figcaption>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-4">
-                            <div href="#" class="card card-product-grid">
-                                <div class="product-img">
-                                    <a href="#" class="img-wrap"> <img src="img/200x200.png"> </a>
-                                </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card p-3 mb-4">
+                                <a href="#" class="img-wrap text-center">
+                                    <img class="img-fluid" src="img/200x200.png">
+                                </a>
                                 <figcaption class="info-wrap mt-2">
                                     <a href="#" class="title">Tên một sản phẩm</a>
                                     <div class="price mt-1 fw-bold">450.000₫</div>
                                 </figcaption>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-4">
-                            <div href="#" class="card card-product-grid">
-                                <div class="product-img">
-                                    <a href="#" class="img-wrap"> <img src="img/200x200.png"> </a>
-                                </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card p-3 mb-4">
+                                <a href="#" class="img-wrap text-center">
+                                    <img class="img-fluid" src="img/200x200.png">
+                                </a>
                                 <figcaption class="info-wrap mt-2">
                                     <a href="#" class="title">Tên một sản phẩm</a>
                                     <div class="price mt-1 fw-bold">450.000₫</div>
                                 </figcaption>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-4">
-                            <div href="#" class="card card-product-grid">
-                                <div class="product-img">
-                                    <a href="#" class="img-wrap"> <img src="img/200x200.png"> </a>
-                                </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card p-3 mb-4">
+                                <a href="#" class="img-wrap text-center">
+                                    <img class="img-fluid" src="img/200x200.png">
+                                </a>
                                 <figcaption class="info-wrap mt-2">
                                     <a href="#" class="title">Tên một sản phẩm</a>
                                     <div class="price mt-1 fw-bold">450.000₫</div>
                                 </figcaption>
                             </div>
                         </div>
-                      
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card p-3 mb-4">
+                                <a href="#" class="img-wrap text-center">
+                                    <img class="img-fluid" src="img/200x200.png">
+                                </a>
+                                <figcaption class="info-wrap mt-2">
+                                    <a href="#" class="title">Tên một sản phẩm</a>
+                                    <div class="price mt-1 fw-bold">450.000₫</div>
+                                </figcaption>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card p-3 mb-4">
+                                <a href="#" class="img-wrap text-center">
+                                    <img class="img-fluid" src="img/200x200.png">
+                                </a>
+                                <figcaption class="info-wrap mt-2">
+                                    <a href="#" class="title">Tên một sản phẩm</a>
+                                    <div class="price mt-1 fw-bold">450.000₫</div>
+                                </figcaption>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card p-3 mb-4">
+                                <a href="#" class="img-wrap text-center">
+                                    <img class="img-fluid" src="img/200x200.png">
+                                </a>
+                                <figcaption class="info-wrap mt-2">
+                                    <a href="#" class="title">Tên một sản phẩm</a>
+                                    <div class="price mt-1 fw-bold">450.000₫</div>
+                                </figcaption>
+                            </div>
+                        </div>
+
                         <!-- col.// -->
                     </div>
                     <!-- row end.// -->
