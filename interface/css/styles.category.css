@@ -1,39 +1,25 @@
-.product-img .img-wrap img {
-    height: auto;
-    max-width: 100%;
-    width: auto;
-    -o-object-fit: cover;
-    object-fit: cover;
-    border-radius: 5px;
-    display: block;
-  margin-left: auto;
-  margin-right: auto;
+.section-pagetop {
+    padding: 40px 0;
+}
 
+.bg {
+    background-color: #f8f9fa;
 }
-section.section__pagetop.bg {
-    background: #80808014;
-    height: 104px;
+
+.padding-y {
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
-.section__content {
-    font-size: 1rem;
-    font-weight: 500;
-    padding: 2rem 0;
+
+.filter-group {
+    border-bottom: 1px solid #e4e4e4;
 }
-.section__category .card-product-grid {
-    margin-bottom: 1.5rem;
+
+.filter-group:last-child {
+    border-bottom: 0;
 }
-.section__feature .card {
-    border: 0;
-}
-a, .btn {
-    transition: all 0.3s ease-out 0s;
-}
-a {
-    color: var(--main);
-}
-a.title {
-    font-family: tahoma;
-}
-h2.title-page{
-    padding-top: 20px;
+
+.filter-group .card-header {
+    border-bottom: 0;
+    background-color: unset;
 }
