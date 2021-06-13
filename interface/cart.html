@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Prototype</title>
+    <title>Giỏ hàng</title>
 
     <link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
@@ -18,7 +18,6 @@
 
     <!-- Custom Styles -->
     <link href="css/styles.prototype.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.cart.css">
 </head>
 
 <body>
@@ -111,157 +110,134 @@
         </div> <!-- container .// -->
     </nav> <!-- navbar-main.// -->
 
-    <!-- Thêm code vào khu vực này -->
-    <section class="section__pagetop bg">
+    <section class="section-pagetop bg-light">
         <div class="container">
             <h2 class="title-page">Giỏ hàng</h2>
-        </div>
-    </section>
-    <section class="section__content section__cart fs__form2">
-        <div class="container">
+        </div> <!-- container.// -->
+    </section> <!-- section-pagetop.// -->
 
+    <section class="section-content padding-y">
+        <div class="container">
             <div class="row">
-                <main class="col-lg-9">
+
+                <main class="col-lg-9 mb-lg-0 mb-3">
                     <div class="card">
 
-                        <table class="table table-borderless table-shopping-cart">
-                            <thead class="text-muted">
-                                <tr class="small text-uppercase">
-                                    <th scope="col">Sản phẩm</th>
-                                    <th scope="col" width="120">Giá</th>
-                                    <th scope="col" width="120">Số lượng</th>
-                                    <th scope="col" class="text-right" width="200"> </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <figure class="itemside">
-                                            <div class="aside"><img src="img/80x80.png" class="img-sm"></div>
-                                            <figcaption class="info">
-                                                <a href="#" class="title text-dark">Nồi cơm điện Sharp 1.8 lít
-                                                    KS-TH18</a>
-
-                                            </figcaption>
-                                        </figure>
-                                    </td>
-                                    <td>
-                                        <div class="price-wrap">
-                                            <var class="price">2.540.000₫</var>
-                                        </div>
-
-                                    </td>
-                                    <td>
-                                        <input type="number" value="1" min="1" class="form-control">
-                                    </td>
-                                    <td class="text-right">
-
-                                        <a href="#" class="btn btn-light"> Xóa</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <figure class="itemside">
-                                            <div class="aside"><img src="img/80x80.png" class="img-sm"></div>
-                                            <figcaption class="info">
-                                                <a href="#" class="title text-dark">Nồi cơm điện Sharp 1.8 lít
-                                                    KS-TH18</a>
-
-                                            </figcaption>
-                                        </figure>
-                                    </td>
-                                    <td>
-                                        <div class="price-wrap">
-                                            <var class="price">2.540.000₫</var>
-                                        </div>
-
-                                    </td>
-                                    <td>
-                                        <input type="number" value="1" min="1" class="form-control">
-                                    </td>
-                                    <td class="text-right">
-
-                                        <a href="#" class="btn btn-light"> Xóa</a>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
+                        <div class="table-responsive-md">
+                            <table class="cart-table table table-borderless">
+                                <thead class="text-muted">
+                                    <tr class="small text-uppercase">
+                                        <th scope="col" style="min-width: 280px;">Sản phẩm</th>
+                                        <th scope="col" width="150" style="min-width: 150px;">Giá</th>
+                                        <th scope="col" width="150" style="min-width: 150px;">Số lượng</th>
+                                        <th scope="col" width="100" style="min-width: 100px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <figure class="itemside">
+                                                <div class="float-start me-3"><img src="img/80px.png"></div>
+                                                <figcaption class="info">
+                                                    <a href="#" class="title">Nồi cơm điện Sharp 1.8 lít KS-TH18</a>
+                                                </figcaption>
+                                            </figure>
+                                        </td>
+                                        <td>
+                                            <div class="price-wrap">
+                                                <span class="price">2.540.000₫</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="number" value="1" min="1" class="form-control">
+                                        </td>
+                                        <td class="text-end">
+                                            <a href="#" class="btn btn-light">Xóa</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <figure class="itemside">
+                                                <div class="float-start me-3"><img src="img/80px.png"></div>
+                                                <figcaption class="info">
+                                                    <a href="#" class="title">Nồi cơm điện Sharp 1.8 lít KS-NR181STV</a>
+                                                </figcaption>
+                                            </figure>
+                                        </td>
+                                        <td>
+                                            <div class="price-wrap">
+                                                <span class="price">990.000₫</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="number" value="1" min="1" class="form-control">
+                                        </td>
+                                        <td class="text-end">
+                                            <a href="#" class="btn btn-light">Xóa</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> <!-- table.responsive-md.// -->
 
                         <div class="card-body border-top">
-                            <a href="#" class="btn btn-primary float-right"> Đặt hàng <i
-                                    class="fa fa-chevron-right"></i> </a>
-                            <a href="#" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Tiếp tục mua sắm </a>
-                        </div>
-                    </div>
-                </main>
-                <!-- col.// -->
-                <aside class="col-lg-3">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <form _lpchecked="1">
-                                <div class="form-group">
-                                    <label>Hình thức giao hàng</label>
-                                    <label class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" name="ship" value="option1"
-                                            checked>
-                                        <span class="custom-control-label">Giao tiêu chuẩn</span>
-                                    </label>
-                                    <label class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" name="ship" value="option2">
-                                        <span class="custom-control-label">Giao nhanh</span>
-                                    </label>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- card-body.// -->
-                    </div>
-                    <!-- card .// -->
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <form _lpchecked="1">
-                                <div class="form-group">
-                                    <label>Mã giảm giá</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" aria-label="Recipient's username"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">Button</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                            <a href="#" class="btn btn-primary float-end">Đặt hàng</a>
+                            <a href="#" class="btn btn-light">Tiếp tục mua sắm</a>
+                        </div> <!-- card-body.// -->
 
-                    </div>
+                    </div> <!-- card.// -->
+                </main> <!-- col.// -->
+
+                <aside class="col-lg-3">
+
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <p class="card-title">Hình thức giao hàng</p>
+                            <form action="">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="delivery_method"
+                                        id="delivery_method_1" checked>
+                                    <label class="form-check-label" for="delivery_method_1">Giao tiêu chuẩn</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="delivery_method"
+                                        id="delivery_method_2">
+                                    <label class="form-check-label" for="delivery_method_2">Giao nhanh</label>
+                                </div>
+                            </form>
+                        </div> <!-- card-body.// -->
+                    </div> <!-- card.// -->
+
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <p class="card-title">Mã giảm giá</p>
+                            <form action="">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="">
+                                    <button class="btn btn-primary" type="button">Áp dụng</button>
+                                </div>
+                            </form>
+                        </div> <!-- card-body.// -->
+                    </div> <!-- card.// -->
 
                     <div class="card">
                         <div class="card-body">
-                            <dl class="dlist-align">
-                                <dt>Tạm tính:</dt>
-                                <dd class="text-right">1.150.000₫</dd>
+                            <dl class="row mb-0">
+                                <dt class="col-xxl-6 col-lg-12 col-6">Tạm tính:</dt>
+                                <dd class="col-xxl-6 col-lg-12 col-6 text-end mb-3">3.530.000₫</dd>
+                                <dt class="col-xxl-6 col-lg-12 col-6">Phí vận chuyển:</dt>
+                                <dd class="col-xxl-6 col-lg-12 col-6 text-end mb-3">50.000₫</dd>
+                                <dt class="col-xxl-6 col-lg-12 col-6">Tổng cộng:</dt>
+                                <dd class="col-xxl-6 col-lg-12 col-6 text-end mb-3"><strong>3.580.000₫</strong></dd>
                             </dl>
-                            <dl class="dlist-align">
-                                <dt>Phí vận chuyển:</dt>
-                                <dd class="text-right">50.000₫</dd>
-                            </dl>
-                            <dl class="dlist-align">
-                                <dt>Tổng cộng:</dt>
-                                <dd class="text-right  h5"><strong>1.200.000₫</strong></dd>
-                            </dl>
+                        </div> <!-- card-body.// -->
+                    </div> <!-- card.// -->
 
+                </aside> <!-- col.// -->
 
-
-                        </div>
-
-                    </div>
-
-                </aside>
-
-            </div>
-
-        </div>
-    </section>
+            </div> <!-- row.// -->
+        </div> <!-- container -->
+    </section> <!-- section-content.// -->
 
     <footer class="section-footer">
         <section class="footer-top py-5 bg-light">
@@ -306,6 +282,7 @@
         <section class="footer-bottom text-center bg-light border-top py-3">
             <div class="container-fluid">© 2021 — Shop Gia Dụng</div> <!-- container-fluid.// -->
         </section> <!-- footer-bottom.// -->
+    </footer> <!-- section-footer.// -->
 
 </body>
 
