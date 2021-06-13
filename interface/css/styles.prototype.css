@@ -5,3 +5,45 @@ a {
 .footer-top li {
     margin-bottom: 0.5rem;
 }
+
+/* category */
+
+.section-pagetop {
+    padding: 40px 0;
+}
+
+.padding-y {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.filter-group {
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.filter-group:last-child {
+    border-bottom: 0;
+}
+
+.filter-group .card-header {
+    border-bottom: 0;
+    background-color: unset;
+}
+
+/* product */
+
+.section-pagetop-2 {
+    padding: 20px 0;
+}
+
+.section-pagetop-2 .breadcrumb {
+    margin-bottom: 0;
+}
+
+.rating-stars i {
+    color: #ccc;
+}
+
+.rating-stars i.active {
+    color: orange;
+}
