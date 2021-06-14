@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Nồi cơm điện",
+    "img": "assets/img/50px.png"
+  },
+  {
+    "id": 2,
+    "name": "Lò nướng",
+    "img": "assets/img/50px.png"
+  },
+  {
+    "id": 3,
+    "name": "Quạt",
+    "img": "assets/img/50px.png"
+  },
+  {
+    "id": 4,
+    "name": "Bàn ủi",
+    "img": "assets/img/50px.png"
+  },
+  {
+    "id": 5,
+    "name": "Bếp điện từ",
+    "img": "assets/img/50px.png"
+  },
+  {
+    "id": 6,
+    "name": "Máy xay sinh tố",
+    "img": "assets/img/50px.png"
+  },
+  {
+    "id": 7,
+    "name": "Máy lọc nước",
+    "img": "assets/img/50px.png"
+  },
+  {
+    "id": 8,
+    "name": "Máy nước nóng",
+    "img": "assets/img/50px.png"
+  },
+  {
+    "id": 9,
+    "name": "Lò vi sóng",
+    "img": "assets/img/50px.png"
+  },
+  {
+    "id": 10,
+    "name": "Máy đánh trứng",
+    "img": "assets/img/50px.png"
+  },
+  {
+    "id": 11,
+    "name": "Máy hút bụi",
+    "img": "assets/img/50px.png"
+  },
+  {
+    "id": 12,
+    "name": "Máy sấy tóc",
+    "img": "assets/img/50px.png"
+  }
+]
