@@ -1,3 +1,17 @@
+# Cài đặt repo
+## Đã cài đặt NodeJS, npm, TypeScript và Angular CLI
+```
+NodeJS v14.17.0
+npm v6.14.13
+Angular CLI v12.0.3
+```
+
+## Các bước cài đặt repo
+1. Dùng GitHub Desktop clone repo về máy
+2. Mở thư mục repo FrontendProject → Chạy cmd
+3. `npm install`
+4. `ng serve --open`
+
 # FrontendProject
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.3.
