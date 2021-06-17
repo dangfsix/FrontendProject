@@ -5,7 +5,7 @@
             <a class="btn btn-secondary" href="#" role="button" style="height: fit-content;">Xem tất cả</a>
         </header> <!-- section-heading.// -->
         <div class="row item-grid">
-            <div class="col-lg-3 col-md-6" *ngFor="let category of categories">
+            <div class="col-lg-3 col-md-6" *ngFor="let category of categories.slice(0, 12)">
                 <div class="card mb-4">
                     <div class="card-body">
                         <a [routerLink]="['/category', category.id]" class="stretched-link">
@@ -28,7 +28,7 @@
             <a class="btn btn-secondary" href="#" role="button" style="height: fit-content;">Xem tất cả</a>
         </header> <!-- section-heading.// -->
         <div class="row item-grid">
-            <div class="col-lg-3 col-md-6" *ngFor="let product of getNewestProducts()">
+            <div class="col-lg-3 col-md-6" *ngFor="let product of products.slice(0, 12)">
                 <div class="card p-3 mb-4">
                     <a [routerLink]="['/product', product.id]" class="img-wrap text-center">
                         <img class="img-fluid" src="{{product.img}}">

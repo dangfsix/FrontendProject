@@ -25,13 +25,4 @@ export class HomeComponent implements OnInit {
     // Thêm tính năng format số kiểu tiếng Việt
     registerLocaleData(vi);
   }
-
-  // Hàm lấy ra 12 sản phẩm mới nhất
-  public getNewestProducts(): any[] {
-    let newestProducts: any[] = [];
-    for (let i = 0; i < 12; i++) {
-      newestProducts.push(this.products[i]);
-    }
-    return newestProducts;
-  }
 }
