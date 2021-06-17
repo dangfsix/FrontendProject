@@ -3,6 +3,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 import { registerLocaleData } from '@angular/common';
 import vi from '@angular/common/locales/vi';
+import { Category, Product } from 'src/app/app.interfaces';
 
 @Component({
   selector: 'app-home',
@@ -10,8 +11,8 @@ import vi from '@angular/common/locales/vi';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  public categories: any[] = [];
-  public products: any[] = [];
+  public categories: Category[] = [];
+  public products: Product[] = [];
 
   constructor(
     private categoryService: CategoryService,

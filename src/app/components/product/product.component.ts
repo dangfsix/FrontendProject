@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Category, Product } from 'src/app/app.interfaces';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -9,8 +10,8 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  public product: any;
-  public category: any;
+  public product: Product = <Product>{};
+  public category: Category = <Category>{};
 
   constructor(
     private route: ActivatedRoute,

@@ -7,7 +7,7 @@ import { User } from '../app.interfaces';
 })
 export class UserService {
   private users: User[] = (data as any).default;
-  private userId: number = 1; // Default user
+  private userId: number = 1; // Default userId
 
   constructor() { }
 
