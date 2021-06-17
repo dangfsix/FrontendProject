@@ -7,7 +7,7 @@
     "phone": "(974) 426-2846",
     "gender": 1,
     "address": "44 Brightwater Avenue, Swartzville, Ecuador",
-    "password": 12345
+    "password": "12345"
   },
   {
     "id": 2,
@@ -17,7 +17,7 @@
     "phone": "(862) 535-3990",
     "gender": 1,
     "address": "25 Perry Place, Cornucopia, Honduras",
-    "password": 12345
+    "password": "12345"
   },
   {
     "id": 3,
@@ -27,6 +27,6 @@
     "phone": "(979) 496-3283",
     "gender": 1,
     "address": "30 Cortelyou Road, Kenwood, Hong Kong",
-    "password": 12345
+    "password": "12345"
   }
 ]
