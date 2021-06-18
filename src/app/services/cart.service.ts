@@ -23,8 +23,8 @@ export class CartService {
     return this.userID;
   }
 
-  addProductToCart(productItem: any) {
-    let product: Product = { productId: productItem.id, wantedQuantity: 1 }
+  addProductToCart(productItem: any, wantedQuantity: number) {
+    let product: Product = { productId: productItem.id, wantedQuantity: wantedQuantity }
     let productList: Array<Product> = [];
     productList.push(product);
     let cart: Cart = { userId: this.userID, productList: productList }
@@ -43,7 +43,7 @@ export class CartService {
             if (isExist) {
               index.productList.forEach((item: any) => {
                 if (item.productId === productItem.id) {
-                  item.wantedQuantity++;
+                  item.wantedQuantity+= wantedQuantity;
                 }
               });
             } else {

@@ -33,7 +33,8 @@ export class ProductComponent implements OnInit {
     registerLocaleData(vi);
   }
 
-  public addProductToCart(product: any): void {
-    this.cartService.addProductToCart(product);
+  public addProductToCart(product: any, wantedQuantity: any): void {
+    
+    this.cartService.addProductToCart(product, parseInt(wantedQuantity));
   }
 }
