@@ -37,7 +37,7 @@ import { CartService } from './services/cart.service';
     AppRoutingModule,
     JwPaginationModule
   ],
-  providers: [CategoryService, ProductService,CartService],
+  providers: [CategoryService, ProductService, CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

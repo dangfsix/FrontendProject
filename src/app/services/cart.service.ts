@@ -1,9 +1,10 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
-interface Product{
-  productId : number;
-  wantedQuantity : number;
+
+interface Product {
+  productId: number;
+  wantedQuantity: number;
 }
+
 interface Cart {
   userId: number;
   productList: Array<Product>;
@@ -12,14 +13,13 @@ interface Cart {
 @Injectable({
   providedIn: 'root'
 })
-
 export class CartService {
-  public userID : number = 1;
-  constructor() { 
-   
+  public userID: number = 1;
+
+  constructor() {
   }
 
-  getIdUser() : number{
+  getIdUser(): number {
     return this.userID;
   }
 
@@ -33,7 +33,7 @@ export class CartService {
     let listCartTemp = JSON.parse(localStorage.getItem('carts') || "{}");
     if (listCartTemp.length == undefined) {
       // neu carts chua co gi thi them truc tiep vao
-        localStorage.setItem('carts', JSON.stringify(carts));
+      localStorage.setItem('carts', JSON.stringify(carts));
     } else {
       let checkIdUser = listCartTemp.some((cartItem: any) => cartItem.userId === this.userID);
       if (checkIdUser) {
@@ -58,17 +58,17 @@ export class CartService {
       }
     }
   }
-  
-  getproductInCart(){
+
+  getproductInCart() {
     let listProduct: Array<Product> = [];
     let listCartTemp = JSON.parse(localStorage.getItem('carts') || "{}");
     let checkIdUser = listCartTemp.some((cartItem: any) => cartItem.userId === this.userID);
-    if(checkIdUser) {
-     listCartTemp.forEach((item : any) => {
+    if (checkIdUser) {
+      listCartTemp.forEach((item: any) => {
         if (item.userId === this.userID) {
-          item.productList.forEach((index : any) => {
+          item.productList.forEach((index: any) => {
             listProduct.push(index)
-           });
+          });
         }
       });
     }

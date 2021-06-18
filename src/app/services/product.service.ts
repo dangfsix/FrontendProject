@@ -24,21 +24,16 @@ export class ProductService {
   }
 
   public sortBySaleDate(products: any[]) {
-    products.sort((a, b) => Date.parse(b.saleDate) - Date.parse(  a.saleDate));
+    products.sort((a, b) => Date.parse(b.saleDate) - Date.parse(a.saleDate));
   }
 
   public sortByTotalBuy(products: any[]) {
     products.sort((a, b) => b.totalBuy - a.totalBuy);
   }
 
-  public getListProductRandomFromCategory(id : number){
-    let listProduct = this.products.filter(product => product.categoryId === id);
-    let result = [];
-    for (let index = 0; index < 4; index++) {
-      let random = Math.floor((Math.random() * listProduct.length))
-      result.push(listProduct[random])
-    }
-    return result;
+  public getRandomListByCategoryId(id: number) {
+    let productListByCategoryId = this.getListByCategoryId(id);
+    let shuffled = productListByCategoryId.sort(() => 0.5 - Math.random());
+    return shuffled;
   }
-
 }

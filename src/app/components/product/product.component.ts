@@ -14,7 +14,8 @@ import { CartService } from 'src/app/services/cart.service';
 export class ProductComponent implements OnInit {
   public product: any;
   public category: any;
-  public productRandom: any;
+  public relatedProducts: any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -22,23 +23,17 @@ export class ProductComponent implements OnInit {
     private categoryService: CategoryService,
     private cartService: CartService
   ) { }
- 
 
   ngOnInit(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     const productId = +this.route.snapshot.params['id'];
     this.product = this.productService.getItemById(productId);
     this.category = this.categoryService.getItemById(this.product.categoryId);
-    this.productService.getListProductRandomFromCategory(this.product.categoryId);
-    this.productRandom = this.productService.getListProductRandomFromCategory(this.product.categoryId)
+    this.relatedProducts = this.productService.getRandomListByCategoryId(this.product.categoryId).slice(0, 4);
     registerLocaleData(vi);
   }
-   
- 
-  addProductToCart(product: any){
+
+  public addProductToCart(product: any): void {
     this.cartService.addProductToCart(product);
   }
-
-
-
 }
