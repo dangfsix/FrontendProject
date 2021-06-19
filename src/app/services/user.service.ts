@@ -16,12 +16,10 @@ export class UserService {
   }
 
   public getItemById(id: number): User {
-    let result = this.users.filter(user => user.id === id);
-    return result[0];
+    return this.users.find(user => user.id === id)!;
   }
 
   public getCurrentUser(): User {
-    let result = this.users.filter(user => user.id === this.userId);
-    return result[0];
+    return this.users.find(user => user.id === this.userId)!;
   }
 }

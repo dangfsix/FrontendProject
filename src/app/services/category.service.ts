@@ -15,7 +15,6 @@ export class CategoryService {
   }
 
   public getItemById(id: number): Category {
-    let result = this.categories.filter(category => category.id === id);
-    return result[0];
+    return this.categories.find(category => category.id === id)!;
   }
 }

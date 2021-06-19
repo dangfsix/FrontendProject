@@ -22,28 +22,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                             
-                                <tr *ngFor="let item of carts;">
+                                <tr *ngFor="let productInCart of cart?.productList">
                                     <td>
                                         <figure class="itemside">
-                                            <div class="float-start me-3"><img src="assets/img/80px.png"></div>
+                                            <div class="float-start me-3"><img
+                                                    [src]="getProduct(productInCart.productId).img"></div>
                                             <figcaption class="info">
-                                                <a href="#" class="title">{{item.product.name}}</a>
+                                                <a [routerLink]="['/product', productInCart.productId]"
+                                                    class="title">{{getProduct(productInCart.productId).name}}</a>
                                             </figcaption>
                                         </figure>
                                     </td>
                                     <td>
                                         <div class="price-wrap">
-                                            <span class="price">{{item.product.price | number:'':'vi'}}₫</span>
+                                            <span class="price">
+                                                {{getProduct(productInCart.productId).price | number:'':'vi'}}₫
+                                            </span>
                                         </div>
                                     </td>
                                     <td>
-                                        <input type="number" [value]="item.qty" min="0" class="form-control">
+                                        <input type="number" [value]="productInCart.wantedQuantity" min="0"
+                                            class="form-control">
                                     </td>
                                     <td class="text-end">
-                                        <a routerLink="/cart" class="btn btn-light"(click)="removeProductFromCart(item.product.id)">Xóa</a>
+                                        <a routerLink="/cart" class="btn btn-light"
+                                            (click)="removeProductFromCart(productInCart.productId)">Xóa</a>
                                     </td>
-                                </tr>       
+                                </tr>
                             </tbody>
                         </table>
                     </div> <!-- table.responsive-md.// -->

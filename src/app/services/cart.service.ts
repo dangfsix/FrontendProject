@@ -1,31 +1,29 @@
 import { Injectable } from '@angular/core';
-
-interface ProductInCart {
-  productId: number;
-  wantedQuantity: number;
-}
-
-interface Cart {
-  userId: number;
-  productList: ProductInCart[];
-}
+import { Cart, ProductInCart } from '../app.interfaces';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private userId: number = 1;
+  private userId: number = 0;
 
-  constructor() { }
-
-  public getUserId(): number {
-    return this.userId;
+  constructor(
+    private userService: UserService
+  ) {
+    this.userId = this.userService.getCurrentUser().id;
   }
 
-  public addProduct(product: any, wantedQuantity: number): void {
+  public getCurrentCart(): Cart | undefined {
+    let carts: Cart[] = JSON.parse(localStorage.getItem('carts') || '[]');
+    let currentCart: Cart | undefined = carts.find(cart => cart.userId === this.userId);
+    return currentCart;
+  }
+
+  public addProduct(productId: number, wantedQuantity: number): void {
     // Tạo biến productInCart và mảng productList
     let productInCart: ProductInCart = {
-      productId: product.id,
+      productId: productId,
       wantedQuantity: wantedQuantity
     }
     let productList: ProductInCart[] = [productInCart];
@@ -51,7 +49,7 @@ export class CartService {
       if (currentCart) {
         // Lấy ra productInCart của productId hiện tại
         let currentProductInCart: ProductInCart | undefined =
-          currentCart?.productList.find(productInCart => productInCart.productId === product.id);
+          currentCart?.productList.find(productInCart => productInCart.productId === productId);
 
         // Nếu tồn tại productInCart của productId hiện tại
         if (currentProductInCart) {
@@ -70,19 +68,7 @@ export class CartService {
     console.log('carts:', localStorage.getItem('carts'));
   }
 
-  getproductInCart() {
-    let productList: Array<ProductInCart> = [];
-    let cartsTemp = JSON.parse(localStorage.getItem('carts') || '[]');
-    let checkUserId = cartsTemp.some((cart: any) => cart.userId === this.userId);
-    if (checkUserId) {
-      cartsTemp.forEach((item: any) => {
-        if (item.userId === this.userId) {
-          item.productList.forEach((cart: any) => {
-            productList.push(cart)
-          });
-        }
-      });
-    }
-    return productList
+  public removeProduct(productId: number): void {
+
   }
 }

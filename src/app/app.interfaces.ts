@@ -33,3 +33,13 @@ export interface User {
     address: string;
     password: string
 }
+
+export interface ProductInCart {
+    productId: number;
+    wantedQuantity: number;
+}
+
+export interface Cart {
+    userId: number;
+    productList: ProductInCart[];
+}

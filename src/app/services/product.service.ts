@@ -15,13 +15,15 @@ export class ProductService {
   }
 
   public getListByCategoryId(id: number): Product[] {
-    let result = this.products.filter(product => product.categoryId === id);
-    return result;
+    return this.products.filter(product => product.categoryId === id);
+  }
+
+  public getRandomListByCategoryId(id: number): Product[] {
+    return this.getListByCategoryId(id).sort(() => 0.5 - Math.random());
   }
 
   public getItemById(id: number): Product {
-    let result = this.products.filter(product => product.id === id);
-    return result[0];
+    return this.products.find(product => product.id === id)!;
   }
 
   public sortBySaleDate(products: Product[]) {
@@ -30,11 +32,5 @@ export class ProductService {
 
   public sortByTotalBuy(products: Product[]) {
     products.sort((a, b) => b.totalBuy - a.totalBuy);
-  }
-
-  public getRandomListByCategoryId(id: number) {
-    let productListByCategoryId = this.getListByCategoryId(id);
-    let shuffled = productListByCategoryId.sort(() => 0.5 - Math.random());
-    return shuffled;
   }
 }
