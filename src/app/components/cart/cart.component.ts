@@ -9,16 +9,17 @@ import vi from '@angular/common/locales/vi';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  public carts: any ;
+  public carts: any;
+
   constructor(
-    public  cartService : CartService
+    public cartService: CartService
   ) { }
 
   ngOnInit(): void {
     registerLocaleData(vi);
   }
 
-  removeProductFromCart(id:string){
-    
+  removeProductFromCart(id: string) {
+
   }
 }

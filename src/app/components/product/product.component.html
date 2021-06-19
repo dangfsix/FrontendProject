@@ -76,14 +76,16 @@
                     <dd class="col-xl-8 col-sm-7 col-6">{{product.status}}</dd>
                     <dt class="col-xl-4 col-sm-5 col-6">Số lượng</dt>
                     <dd class="col-xl-8 col-sm-7 col-6">
-                        <input #wantedQuantity type="number" class="form-control w-50" value="1" min="1" max="1000" step="1" />
+                        <input #wantedQuantity type="number" class="form-control w-50" value="1" min="1" max="1000"
+                            step="1" />
                     </dd>
                 </dl>
 
                 <div>
-                    <a [routerLink]="['/cart']" class="btn btn-primary" (click)="addProductToCart(product,wantedQuantity.value) ">Mua ngay</a>
+                    <a [routerLink]="['/cart']" class="btn btn-primary"
+                        (click)="addProductToCart(product, wantedQuantity.value) ">Mua ngay</a>
                     <a [routerLink]="['/product', product.id]" class="btn btn-light ms-2"
-                        (click)="addProductToCart(product,wantedQuantity.value)">Thêm vào giỏ hàng</a>
+                        (click)="addProductToCart(product, wantedQuantity.value)">Thêm vào giỏ hàng</a>
                 </div>
 
             </main>

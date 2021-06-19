@@ -1,77 +1,88 @@
 import { Injectable } from '@angular/core';
 
-interface Product {
+interface ProductInCart {
   productId: number;
   wantedQuantity: number;
 }
 
 interface Cart {
   userId: number;
-  productList: Array<Product>;
+  productList: ProductInCart[];
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  public userID: number = 1;
+  private userId: number = 1;
 
-  constructor() {
+  constructor() { }
+
+  public getUserId(): number {
+    return this.userId;
   }
 
-  getIdUser(): number {
-    return this.userID;
-  }
+  public addProduct(product: any, wantedQuantity: number): void {
+    // Tạo biến productInCart và mảng productList
+    let productInCart: ProductInCart = {
+      productId: product.id,
+      wantedQuantity: wantedQuantity
+    }
+    let productList: ProductInCart[] = [productInCart];
 
-  addProductToCart(productItem: any, wantedQuantity: number) {
-    let product: Product = { productId: productItem.id, wantedQuantity: wantedQuantity }
-    let productList: Array<Product> = [];
-    productList.push(product);
-    let cart: Cart = { userId: this.userID, productList: productList }
-    let carts: Array<Cart> = [];
-    carts.push(cart);
-    let listCartTemp = JSON.parse(localStorage.getItem('carts') || "{}");
-    if (listCartTemp.length == undefined) {
-      // neu carts chua co gi thi them truc tiep vao
+    // Tạo biến cart và mảng carts
+    let cart: Cart = {
+      userId: this.userId,
+      productList: productList
+    }
+    let carts: Cart[] = [cart];
+
+    // Tạo biến cartsTemp lấy dữ liệu từ localStorage(carts)
+    let cartsTemp: Cart[] = JSON.parse(localStorage.getItem('carts') || '[]');
+
+    // Nếu carts trong localStorage chưa có -> Tạo key carts
+    if (cartsTemp.length === 0) {
       localStorage.setItem('carts', JSON.stringify(carts));
     } else {
-      let checkIdUser = listCartTemp.some((cartItem: any) => cartItem.userId === this.userID);
-      if (checkIdUser) {
-        listCartTemp.forEach((index: any) => {
-          if (index.userId === this.userID) {
-            let isExist = index.productList.some((cartItem: any) => cartItem.productId === productItem.id);
-            if (isExist) {
-              index.productList.forEach((item: any) => {
-                if (item.productId === productItem.id) {
-                  item.wantedQuantity+= wantedQuantity;
-                }
-              });
-            } else {
-              index.productList.push(product);
-            }
-            localStorage.setItem('carts', JSON.stringify(listCartTemp));
-          }
-        });
+      // Lấy ra cart của userId hiện tại
+      let currentCart: Cart | undefined = cartsTemp.find(cart => cart.userId === this.userId);
+
+      // Nếu tồn tại cart của userId hiện tại
+      if (currentCart) {
+        // Lấy ra productInCart của productId hiện tại
+        let currentProductInCart: ProductInCart | undefined =
+          currentCart?.productList.find(productInCart => productInCart.productId === product.id);
+
+        // Nếu tồn tại productInCart của productId hiện tại
+        if (currentProductInCart) {
+          currentProductInCart.wantedQuantity += wantedQuantity;
+        } else {
+          currentCart?.productList.push(productInCart);
+        }
+        localStorage.setItem('carts', JSON.stringify(cartsTemp));
       } else {
-        listCartTemp.push(cart);
-        localStorage.setItem('carts', JSON.stringify(listCartTemp));
+        cartsTemp.push(cart);
+        localStorage.setItem('carts', JSON.stringify(cartsTemp));
       }
     }
+
+    // Test
+    console.log('carts:', localStorage.getItem('carts'));
   }
 
   getproductInCart() {
-    let listProduct: Array<Product> = [];
-    let listCartTemp = JSON.parse(localStorage.getItem('carts') || "{}");
-    let checkIdUser = listCartTemp.some((cartItem: any) => cartItem.userId === this.userID);
-    if (checkIdUser) {
-      listCartTemp.forEach((item: any) => {
-        if (item.userId === this.userID) {
-          item.productList.forEach((index: any) => {
-            listProduct.push(index)
+    let productList: Array<ProductInCart> = [];
+    let cartsTemp = JSON.parse(localStorage.getItem('carts') || '[]');
+    let checkUserId = cartsTemp.some((cart: any) => cart.userId === this.userId);
+    if (checkUserId) {
+      cartsTemp.forEach((item: any) => {
+        if (item.userId === this.userId) {
+          item.productList.forEach((cart: any) => {
+            productList.push(cart)
           });
         }
       });
     }
-    return listProduct
+    return productList
   }
 }
