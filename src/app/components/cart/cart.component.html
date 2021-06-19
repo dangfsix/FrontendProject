@@ -22,48 +22,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                             
+                                <tr *ngFor="let item of carts;">
                                     <td>
                                         <figure class="itemside">
                                             <div class="float-start me-3"><img src="assets/img/80px.png"></div>
                                             <figcaption class="info">
-                                                <a href="#" class="title">Nồi cơm điện Sharp 1.8 lít KS-TH18</a>
+                                                <a href="#" class="title">{{item.product.name}}</a>
                                             </figcaption>
                                         </figure>
                                     </td>
                                     <td>
                                         <div class="price-wrap">
-                                            <span class="price">2.540.000₫</span>
+                                            <span class="price">{{item.product.price | number:'':'vi'}}₫</span>
                                         </div>
                                     </td>
                                     <td>
-                                        <input type="number" value="1" min="1" class="form-control">
+                                        <input type="number" [value]="item.qty" min="0" class="form-control">
                                     </td>
                                     <td class="text-end">
-                                        <a href="#" class="btn btn-light">Xóa</a>
+                                        <a routerLink="/cart" class="btn btn-light"(click)="removeProductFromCart(item.product.id)">Xóa</a>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <figure class="itemside">
-                                            <div class="float-start me-3"><img src="assets/img/80px.png"></div>
-                                            <figcaption class="info">
-                                                <a href="#" class="title">Nồi cơm điện Sharp 1.8 lít KS-NR181STV</a>
-                                            </figcaption>
-                                        </figure>
-                                    </td>
-                                    <td>
-                                        <div class="price-wrap">
-                                            <span class="price">990.000₫</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input type="number" value="1" min="1" class="form-control">
-                                    </td>
-                                    <td class="text-end">
-                                        <a href="#" class="btn btn-light">Xóa</a>
-                                    </td>
-                                </tr>
+                                </tr>       
                             </tbody>
                         </table>
                     </div> <!-- table.responsive-md.// -->
@@ -116,7 +96,7 @@
                             <dt class="col-xxl-6 col-lg-12 col-6">Phí vận chuyển:</dt>
                             <dd class="col-xxl-6 col-lg-12 col-6 text-end mb-3">50.000₫</dd>
                             <dt class="col-xxl-6 col-lg-12 col-6">Tổng cộng:</dt>
-                            <dd class="col-xxl-6 col-lg-12 col-6 text-end mb-3"><strong>3.580.000₫</strong></dd>
+                            <dd class="col-xxl-6 col-lg-12 col-6 text-end mb-3"><strong>ggfh₫</strong></dd>
                         </dl>
                     </div> <!-- card-body.// -->
                 </div> <!-- card.// -->

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from 'src/app/services/cart.service';
+import { registerLocaleData } from '@angular/common';
+import vi from '@angular/common/locales/vi';
 
 @Component({
   selector: 'app-cart',
@@ -6,11 +9,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  private userId: number = 1; // Default user
+  public carts: any;
 
-  constructor() { }
+  constructor(
+    public cartService: CartService
+  ) { }
 
   ngOnInit(): void {
+    registerLocaleData(vi);
   }
 
+  removeProductFromCart(id: string) {
+
+  }
 }

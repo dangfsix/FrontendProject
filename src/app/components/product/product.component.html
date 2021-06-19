@@ -3,7 +3,8 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item" aria-current="page"><a routerLink="">Trang chủ</a></li>
-                <li class="breadcrumb-item" aria-current="page"><a [routerLink]="['/category', category.id]" >{{category.name}}</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a
+                        [routerLink]="['/category', category.id]">{{category.name}}</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{product.name}}</li>
             </ol>
         </nav>
@@ -17,22 +18,15 @@
             <aside class="col-md-5 col-lg-6 mb-md-0 mb-4">
                 <div id="productImageCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#productImageCarousel" data-bs-slide-to="0"
-                            class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#productImageCarousel" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#productImageCarousel" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#productImageCarousel"
+                            *ngFor="let img of product.imgs; index as i; first as isFirst" [ngClass]="{active: isFirst}"
+                            [attr.data-bs-slide-to]="i" [attr.aria-current]="isFirst ? true : ''"
+                            [attr.aria-label]="'Slide ' + i"></button>
                     </div>
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="assets/img/570px-1.png" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="assets/img/570px-2.png" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="assets/img/570px-3.png" class="d-block w-100" alt="...">
+                        <div class="carousel-item" *ngFor="let img of product.imgs; first as isFirst"
+                            [ngClass]="{active: isFirst}">
+                            <img [src]="img" class="d-block w-100" alt="...">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#productImageCarousel"
@@ -60,34 +54,38 @@
                         <i class="bi bi-star-fill active"></i>
                         <i class="bi bi-star-fill"></i>
                     </span>
-                    <small class="label-rating text-muted me-2">20 đánh giá</small>
-                    <small class="label-rating text-success"><i class="bi bi-bag-check-fill"></i> 150 đã mua</small>
+                    <small class="label-rating text-muted me-2">{{product.ratingNumber}} đánh giá</small>
+                    <small class="label-rating text-success"><i class="bi bi-bag-check-fill"></i> {{product.totalBuy}}
+                        đã mua</small>
                 </div>
 
                 <div class="mb-4">
-                    <span class="price h4">2.540.000đ</span>
-                    <span class="ms-2 text-muted text-decoration-line-through">3.000.000₫</span>
+                    <span class="price h4">{{product.price | number:'':'vi'}}₫</span>
+                    <span class="ms-2 text-muted text-decoration-line-through"
+                        *ngIf="product.oldPrice>0">{{product.oldPrice | number:'':'vi'}}₫</span>
                 </div>
 
                 <dl class="row mb-4">
                     <dt class="col-xl-4 col-sm-5 col-6">Thương hiệu</dt>
-                    <dd class="col-xl-8 col-sm-7 col-6"><a href="#">Sharp</a></dd>
+                    <dd class="col-xl-8 col-sm-7 col-6"><a href="#">{{product.brand}}</a></dd>
 
                     <dt class="col-xl-4 col-sm-5 col-6">Thời gian giao hàng</dt>
-                    <dd class="col-xl-8 col-sm-7 col-6">2-5 ngày</dd>
+                    <dd class="col-xl-8 col-sm-7 col-6">{{product.timeToDelivery}}</dd>
 
                     <dt class="col-xl-4 col-sm-5 col-6">Tình trạng</dt>
-                    <dd class="col-xl-8 col-sm-7 col-6">còn hàng</dd>
-
+                    <dd class="col-xl-8 col-sm-7 col-6">{{product.status}}</dd>
                     <dt class="col-xl-4 col-sm-5 col-6">Số lượng</dt>
                     <dd class="col-xl-8 col-sm-7 col-6">
-                        <input type="number" class="form-control w-50" value="1" min="1" max="1000" step="1" />
+                        <input #wantedQuantity type="number" class="form-control w-50" value="1" min="1" max="1000"
+                            step="1" />
                     </dd>
                 </dl>
 
                 <div>
-                    <a href="#" class="btn btn-primary">Mua ngay</a>
-                    <a href="#" class="btn btn-light ms-2">Thêm vào giỏ hàng</a>
+                    <a [routerLink]="['/cart']" class="btn btn-primary"
+                        (click)="addProductToCart(product, wantedQuantity.value) ">Mua ngay</a>
+                    <a [routerLink]="['/product', product.id]" class="btn btn-light ms-2"
+                        (click)="addProductToCart(product, wantedQuantity.value)">Thêm vào giỏ hàng</a>
                 </div>
 
             </main>
@@ -102,22 +100,7 @@
             <div class="col">
                 <h3 class="pb-2">Mô tả sản phẩm</h3>
                 <p>
-                    Vestibulum at lectus eu mi volutpat condimentum sed vel libero. Etiam a finibus odio, sit amet
-                    pellentesque lorem. Proin sodales auctor ex, in tempus nunc dapibus ac. Sed sit amet tellus dui.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pellentesque at justo sed
-                    rutrum. Proin ac justo et libero iaculis malesuada. Quisque posuere urna eget nulla malesuada,
-                    sit amet mattis elit eleifend. Integer et mollis elit. Integer et massa at ipsum hendrerit porta
-                    quis vehicula nibh. Nullam tellus urna, blandit sed ligula a, posuere scelerisque massa. In ac
-                    lectus non risus facilisis finibus. Nulla neque risus, sodales et mi nec, lobortis scelerisque
-                    arcu. Proin at lectus ex.
-                </p>
-                <p>
-                    Nulla vel ante euismod, bibendum urna a, dapibus velit. Praesent vel magna mi. Vestibulum ante
-                    ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus bibendum
-                    tincidunt nibh. Fusce faucibus viverra ipsum, quis sagittis sem fermentum vel. Maecenas aliquet
-                    vulputate finibus. Cras vestibulum vel lacus sit amet convallis. Aliquam finibus egestas dui, id
-                    iaculis lectus lacinia nec. Praesent bibendum lorem at sem facilisis, quis placerat lorem
-                    laoreet.
+                    {{product.description}}
                 </p>
             </div>
         </div>
@@ -185,8 +168,7 @@
                         <form action="">
                             <div class="row">
                                 <div class="col-md-5 mb-3">
-                                    <input type="text" class="form-control" placeholder="Họ tên"
-                                        aria-label="Họ tên">
+                                    <input type="text" class="form-control" placeholder="Họ tên" aria-label="Họ tên">
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <input type="email" class="form-control" placeholder="Email" aria-label="Email">
@@ -220,47 +202,14 @@
     <div class="container">
         <h3 class="pb-2">Sản phẩm liên quan</h3>
         <div class="row item-grid">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6" *ngFor='let relatedProduct of relatedProducts'>
                 <div class="card p-3 mb-4">
-                    <a href="#" class="img-wrap text-center">
-                        <img class="img-fluid" src="assets/img/200px.png">
+                    <a [routerLink]="['/product', relatedProduct.id]" class="img-wrap text-center">
+                        <img class="img-fluid" [src]="relatedProduct.img">
                     </a>
                     <figcaption class="info-wrap mt-2">
-                        <a href="#" class="title">Tên một sản phẩm</a>
-                        <div class="price mt-1 fw-bold">450.000₫</div>
-                    </figcaption>
-                </div>
-            </div> <!-- col.// -->
-            <div class="col-lg-3 col-md-6">
-                <div class="card p-3 mb-4">
-                    <a href="#" class="img-wrap text-center">
-                        <img class="img-fluid" src="assets/img/200px.png">
-                    </a>
-                    <figcaption class="info-wrap mt-2">
-                        <a href="#" class="title">Tên một sản phẩm</a>
-                        <div class="price mt-1 fw-bold">450.000₫</div>
-                    </figcaption>
-                </div>
-            </div> <!-- col.// -->
-            <div class="col-lg-3 col-md-6">
-                <div class="card p-3 mb-4">
-                    <a href="#" class="img-wrap text-center">
-                        <img class="img-fluid" src="assets/img/200px.png">
-                    </a>
-                    <figcaption class="info-wrap mt-2">
-                        <a href="#" class="title">Tên một sản phẩm</a>
-                        <div class="price mt-1 fw-bold">450.000₫</div>
-                    </figcaption>
-                </div>
-            </div> <!-- col.// -->
-            <div class="col-lg-3 col-md-6">
-                <div class="card p-3 mb-4">
-                    <a href="#" class="img-wrap text-center">
-                        <img class="img-fluid" src="assets/img/200px.png">
-                    </a>
-                    <figcaption class="info-wrap mt-2">
-                        <a href="#" class="title">Tên một sản phẩm</a>
-                        <div class="price mt-1 fw-bold">450.000₫</div>
+                        <a [routerLink]="['/product', relatedProduct.id]" class="title">{{relatedProduct.name}}</a>
+                        <div class="price mt-1 fw-bold">{{relatedProduct.price | number:'':'vi'}}₫</div>
                     </figcaption>
                 </div>
             </div> <!-- col.// -->

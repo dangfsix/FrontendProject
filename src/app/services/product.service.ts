@@ -31,4 +31,10 @@ export class ProductService {
   public sortByTotalBuy(products: Product[]) {
     products.sort((a, b) => b.totalBuy - a.totalBuy);
   }
+
+  public getRandomListByCategoryId(id: number) {
+    let productListByCategoryId = this.getListByCategoryId(id);
+    let shuffled = productListByCategoryId.sort(() => 0.5 - Math.random());
+    return shuffled;
+  }
 }

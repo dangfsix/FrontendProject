@@ -17,6 +17,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { OrderComponent } from './components/order/order.component';
 import { UserComponent } from './components/user/user.component';
 import { UserService } from './services/user.service';
+import { CartService } from './services/cart.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { UserService } from './services/user.service';
   providers: [
     CategoryService,
     ProductService,
-    UserService
+    UserService,
+    CartService
   ],
   bootstrap: [AppComponent]
 })
