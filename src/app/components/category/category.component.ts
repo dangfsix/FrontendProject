@@ -31,7 +31,7 @@ export class CategoryComponent implements OnInit {
     registerLocaleData(vi);
   }
 
-  onChangePage(pageOfItems: any[]) {
+  public onChangePage(pageOfItems: any[]): void {
     this.pageOfItems = pageOfItems;
   }
 }

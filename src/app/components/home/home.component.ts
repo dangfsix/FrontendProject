@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
     this.categories = this.categoryService.getList();
     this.products = this.productService.getList();
     this.productService.sortBySaleDate(this.products);
-    // Thêm tính năng format số kiểu tiếng Việt
     registerLocaleData(vi);
   }
 }
