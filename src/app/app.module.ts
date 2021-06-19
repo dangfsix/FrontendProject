@@ -16,6 +16,7 @@ import { JwPaginationModule } from './directives/jw-pagination.module';
 import { CartComponent } from './components/cart/cart.component';
 import { OrderComponent } from './components/order/order.component';
 import { UserComponent } from './components/user/user.component';
+import { UserService } from './services/user.service';
 import { CartService } from './services/cart.service';
 
 @NgModule({
@@ -37,7 +38,12 @@ import { CartService } from './services/cart.service';
     AppRoutingModule,
     JwPaginationModule
   ],
-  providers: [CategoryService, ProductService, CartService],
+  providers: [
+    CategoryService,
+    ProductService,
+    UserService,
+    CartService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

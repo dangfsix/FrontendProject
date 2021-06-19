@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Category, Product } from 'src/app/app.interfaces';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 import { registerLocaleData } from '@angular/common';
@@ -12,9 +13,9 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  public product: any;
-  public category: any;
-  public relatedProducts: any;
+  public product: Product = <Product>{};
+  public category: Category = <Category>{};
+  public relatedProducts: Product[] = [];
 
   constructor(
     private route: ActivatedRoute,

@@ -4,6 +4,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 import { registerLocaleData } from '@angular/common';
 import vi from '@angular/common/locales/vi';
+import { Category, Product } from 'src/app/app.interfaces';
 
 @Component({
   selector: 'app-category',
@@ -11,8 +12,8 @@ import vi from '@angular/common/locales/vi';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  public category: any;
-  public products: any[] = [];
+  public category: Category = <Category>{};
+  public products: Product[] = [];
   public pageOfItems: any[] = [];
 
   constructor(
