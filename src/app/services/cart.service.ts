@@ -7,17 +7,20 @@ import { UserService } from './user.service';
 })
 export class CartService {
   private userId: number = 0;
-
+  private carts: Cart[] = [];
+  private currentCart?: Cart;
   constructor(
     private userService: UserService
   ) {
     this.userId = this.userService.getCurrentUser().id;
+    this.carts = JSON.parse(localStorage.getItem('carts') || '[]');
   }
 
   public getCurrentCart(): Cart | undefined {
-    let carts: Cart[] = JSON.parse(localStorage.getItem('carts') || '[]');
-    let currentCart: Cart | undefined = carts.find(cart => cart.userId === this.userId);
-    return currentCart;
+  //  let carts: Cart[] = JSON.parse(localStorage.getItem('carts') || '[]');
+ // let currentCart: Cart | undefined = this.carts.find(cart => cart.userId === this.userId);
+  this.currentCart = this.carts.find(cart => cart.userId === this.userId);
+    return this.currentCart;
   }
 
   public addProduct(productId: number, wantedQuantity: number): void {
@@ -63,12 +66,15 @@ export class CartService {
         localStorage.setItem('carts', JSON.stringify(cartsTemp));
       }
     }
-
-    // Test
-    console.log('carts:', localStorage.getItem('carts'));
   }
 
   public removeProduct(productId: number): void {
-
+   // let cartsTemp: Cart[] = JSON.parse(localStorage.getItem('carts') || '[]');
+   // let currentCart: Cart | undefined = cartsTemp.find(cart => cart.userId === this.userId);
+    this.currentCart?.productList.forEach((element,index)=>{
+      if(element.productId === productId) this.currentCart?.productList.splice(index,1);
+    });
+   localStorage.setItem('carts', JSON.stringify(this.carts));
   }
+
 }

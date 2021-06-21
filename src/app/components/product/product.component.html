@@ -47,13 +47,10 @@
                 <h2 class="title">{{product.name}}</h2>
 
                 <div class="rating-wrap my-3">
-                    <span class="rating-stars me-2">
-                        <i class="bi bi-star-fill active"></i>
-                        <i class="bi bi-star-fill active"></i>
-                        <i class="bi bi-star-fill active"></i>
-                        <i class="bi bi-star-fill active"></i>
-                        <i class="bi bi-star-fill"></i>
+                    <span class="rating-stars me-2" *ngFor="let e of [].constructor(5); index as index">
+                        <i class="bi bi-star-fill" [class]="index < product.ratingScore ? 'active' : ''"></i>
                     </span>
+
                     <small class="label-rating text-muted me-2">{{product.ratingNumber}} đánh giá</small>
                     <small class="label-rating text-success"><i class="bi bi-bag-check-fill"></i> {{product.totalBuy}}
                         đã mua</small>
@@ -120,12 +117,8 @@
                                 <span>20/08/2020</span>
                             </div>
                             <div class="ratting-star float-end">
-                                <span class="rating-stars me-2">
-                                    <i class="bi bi-star-fill active"></i>
-                                    <i class="bi bi-star-fill active"></i>
-                                    <i class="bi bi-star-fill active"></i>
-                                    <i class="bi bi-star-fill active"></i>
-                                    <i class="bi bi-star-fill"></i>
+                                <span class="rating-stars me-2" *ngFor="let e of [].constructor(5); index as index">
+                                    <i class="bi bi-star-fill" [class]="index < 1 ? 'active' : ''"></i>
                                 </span>
                                 <span>(4)</span>
                             </div>
@@ -145,14 +138,10 @@
                                 <span>19/08/2020</span>
                             </div>
                             <div class="ratting-star float-end">
-                                <span class="rating-stars me-2">
-                                    <i class="bi bi-star-fill active"></i>
-                                    <i class="bi bi-star-fill active"></i>
-                                    <i class="bi bi-star-fill active"></i>
-                                    <i class="bi bi-star-fill active"></i>
-                                    <i class="bi bi-star-fill active"></i>
+                                <span class="rating-stars me-2" *ngFor="let e of [].constructor(5); index as index">
+                                    <i class="bi bi-star-fill" [class]="index < 3 ? 'active' : ''"></i>
                                 </span>
-                                <span>(5)</span>
+                                <span>(3)</span>
                             </div>
                         </div>
                         <p>

@@ -11,15 +11,15 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  public cart: Cart | undefined;
-
+  public cart = this.cartService.getCurrentCart();
+ // public cart: Cart | undefined;
   constructor(
-    private cartService: CartService,
+    public cartService: CartService,
     private productService: ProductService
   ) { }
 
   ngOnInit(): void {
-    this.cart = this.cartService.getCurrentCart();
+   // this.cart
     registerLocaleData(vi);
   }
 
@@ -30,4 +30,6 @@ export class CartComponent implements OnInit {
   public removeProductFromCart(productId: number): void {
     this.cartService.removeProduct(productId);
   }
+
+
 }

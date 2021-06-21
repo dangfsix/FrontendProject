@@ -7,6 +7,7 @@ import { registerLocaleData } from '@angular/common';
 import vi from '@angular/common/locales/vi';
 import { CartService } from 'src/app/services/cart.service';
 
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -32,6 +33,7 @@ export class ProductComponent implements OnInit {
     this.category = this.categoryService.getItemById(this.product.categoryId);
     this.relatedProducts = this.productService.getRandomListByCategoryId(this.product.categoryId).slice(0, 4);
     registerLocaleData(vi);
+    
   }
 
   public addProductToCart(productId: number, wantedQuantity: number): void {
