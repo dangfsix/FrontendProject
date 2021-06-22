@@ -41,7 +41,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <input type="number" [value]="productInCart.wantedQuantity" min="0"
+                                        <input #inputQuantityElement type="number"(change)="saverange(productInCart.productId,inputQuantityElement )" [value]="productInCart.wantedQuantity" min="1" max="{{getProduct(productInCart.productId).quantity}}"
                                             class="form-control">
                                     </td>
                                     <td class="text-end">
@@ -101,7 +101,7 @@
                             <dt class="col-xxl-6 col-lg-12 col-6">Phí vận chuyển:</dt>
                             <dd class="col-xxl-6 col-lg-12 col-6 text-end mb-3">50.000₫</dd>
                             <dt class="col-xxl-6 col-lg-12 col-6">Tổng cộng:</dt>
-                            <dd class="col-xxl-6 col-lg-12 col-6 text-end mb-3"><strong>ggfh₫</strong></dd>
+                            <dd class="col-xxl-6 col-lg-12 col-6 text-end mb-3"><strong> {{totalPrice | number:'':'vi'}}₫</strong></dd>
                         </dl>
                     </div> <!-- card-body.// -->
                 </div> <!-- card.// -->

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Cart, ProductInCart } from '../app.interfaces';
+import { ProductService } from './product.service';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -10,16 +11,17 @@ export class CartService {
   private carts: Cart[] = [];
   private currentCart?: Cart;
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private productService: ProductService
   ) {
     this.userId = this.userService.getCurrentUser().id;
     this.carts = JSON.parse(localStorage.getItem('carts') || '[]');
   }
 
   public getCurrentCart(): Cart | undefined {
-  //  let carts: Cart[] = JSON.parse(localStorage.getItem('carts') || '[]');
+  //let carts: Cart[] = JSON.parse(localStorage.getItem('carts') || '[]');
  // let currentCart: Cart | undefined = this.carts.find(cart => cart.userId === this.userId);
-  this.currentCart = this.carts.find(cart => cart.userId === this.userId);
+    this.currentCart = this.carts.find(cart => cart.userId === this.userId);
     return this.currentCart;
   }
 
@@ -36,17 +38,13 @@ export class CartService {
       userId: this.userId,
       productList: productList
     }
-    let carts: Cart[] = [cart];
-
-    // Tạo biến cartsTemp lấy dữ liệu từ localStorage(carts)
-    let cartsTemp: Cart[] = JSON.parse(localStorage.getItem('carts') || '[]');
-
     // Nếu carts trong localStorage chưa có -> Tạo key carts
-    if (cartsTemp.length === 0) {
-      localStorage.setItem('carts', JSON.stringify(carts));
+    if (this.carts.length === 0) {
+      this.carts = [cart]
+      localStorage.setItem('carts', JSON.stringify(this.carts));
     } else {
       // Lấy ra cart của userId hiện tại
-      let currentCart: Cart | undefined = cartsTemp.find(cart => cart.userId === this.userId);
+      let currentCart: Cart | undefined = this.carts.find(cart => cart.userId === this.userId);
 
       // Nếu tồn tại cart của userId hiện tại
       if (currentCart) {
@@ -60,21 +58,42 @@ export class CartService {
         } else {
           currentCart?.productList.push(productInCart);
         }
-        localStorage.setItem('carts', JSON.stringify(cartsTemp));
+        localStorage.setItem('carts', JSON.stringify(this.carts));
       } else {
-        cartsTemp.push(cart);
-        localStorage.setItem('carts', JSON.stringify(cartsTemp));
+        this.carts.push(cart);
+        localStorage.setItem('carts', JSON.stringify(this.carts));
       }
     }
   }
 
+  public changeQuantityProduct(productId: number, wantedQuantity: number):void{
+    let currentCart: Cart | undefined = this.carts.find(cart => cart.userId === this.userId);
+    let currentProductInCart: ProductInCart | undefined =
+          currentCart?.productList.find(productInCart => productInCart.productId === productId);
+    if (currentProductInCart) {
+        currentProductInCart.wantedQuantity = wantedQuantity
+    }
+    localStorage.setItem('carts', JSON.stringify(this.carts))
+  }
+
   public removeProduct(productId: number): void {
-   // let cartsTemp: Cart[] = JSON.parse(localStorage.getItem('carts') || '[]');
-   // let currentCart: Cart | undefined = cartsTemp.find(cart => cart.userId === this.userId);
     this.currentCart?.productList.forEach((element,index)=>{
       if(element.productId === productId) this.currentCart?.productList.splice(index,1);
     });
    localStorage.setItem('carts', JSON.stringify(this.carts));
   }
+
+  public getTotalPrice(): number {
+    var currentCart = this.getCurrentCart();
+    let totalPrice: number = 0;
+    if(currentCart){
+      currentCart?.productList.forEach((element : any) => {
+        let product = this.productService.getItemById(element.productId);
+        totalPrice += product.price * element.wantedQuantity;
+      });
+    }
+    return totalPrice;
+  }
+
 
 }
