@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as data from '../../assets/data/products.json';
-import { Product } from '../app.interfaces';
+import {Product} from '../app.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,8 @@ import { Product } from '../app.interfaces';
 export class ProductService {
   private products: Product[] = (data as any).default;
 
-  constructor() { }
+  constructor() {
+  }
 
   public getList(): Product[] {
     return this.products;
@@ -32,5 +33,13 @@ export class ProductService {
 
   public sortByTotalBuy(products: Product[]) {
     products.sort((a, b) => b.totalBuy - a.totalBuy);
+  }
+
+  public sortByLowestPrice(products: Product[]) {
+    products.sort((a, b) => a.price - b.price);
+  }
+
+  public sortByHighestRatingScore(products: Product[]) {
+    products.sort((a, b) => b.ratingScore - a.ratingScore);
   }
 }
