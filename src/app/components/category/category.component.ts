@@ -89,7 +89,6 @@ export class CategoryComponent implements OnInit {
 
       if (this.hasFilterBrand()) {
         this.removeProductItems(this.products);
-
       } else {
         this.resetProducts();
       }
@@ -97,27 +96,29 @@ export class CategoryComponent implements OnInit {
       let pr2: any = document.getElementById("checkbox_price_2");
       let pr3: any = document.getElementById("checkbox_price_3");
 
-      if (pr1.checked) {
-        for (let i = 0; i < this.products.length; i++) {
-          if (this.products[i].price >= 1000000) {
-            this.products.splice(i, 1);
-            i--;
+      if (this.hasFilterPrice()) {
+        if (!pr1.checked) {
+          for (let i = 0; i < this.products.length; i++) {
+            if (this.products[i].price < 1000000) {
+              this.products.splice(i, 1);
+              i--;
+            }
           }
         }
-      }
-      if (pr2.checked) {
-        for (let i = 0; i < this.products.length; i++) {
-          if (this.products[i].price < 1000000 || this.products[i].price > 2000000) {
-            this.products.splice(i, 1);
-            i--;
+        if (!pr2.checked) {
+          for (let i = 0; i < this.products.length; i++) {
+            if (this.products[i].price >= 1000000 && this.products[i].price <= 2000000) {
+              this.products.splice(i, 1);
+              i--;
+            }
           }
         }
-      }
-      if (pr3.checked) {
-        for (let i = 0; i < this.products.length; i++) {
-          if (this.products[i].price < 2000000) {
-            this.products.splice(i, 1);
-            i--;
+        if (!pr3.checked) {
+          for (let i = 0; i < this.products.length; i++) {
+            if (this.products[i].price > 2000000) {
+              this.products.splice(i, 1);
+              i--;
+            }
           }
         }
       }
