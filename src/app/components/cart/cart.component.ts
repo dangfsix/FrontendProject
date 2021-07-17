@@ -11,6 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
+  public totalPrice = this.cartService.getTotalPrice();
   public cart: Cart | undefined;
 
   constructor(
@@ -29,5 +30,11 @@ export class CartComponent implements OnInit {
 
   public removeProductFromCart(productId: number): void {
     this.cartService.removeProduct(productId);
+    this.totalPrice = this.cartService.getTotalPrice();
+  }
+
+  public saveRange(productId: number, wantedQuantity: number): void {
+    this.cartService.changeQuantityProduct(productId, wantedQuantity);
+    this.totalPrice = this.cartService.getTotalPrice();
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Cart, ProductInCart } from '../app.interfaces';
+import { ProductService } from './product.service';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -7,17 +8,20 @@ import { UserService } from './user.service';
 })
 export class CartService {
   private userId: number = 0;
+  private carts: Cart[] = [];
+  private currentCart?: Cart;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private productService: ProductService
   ) {
     this.userId = this.userService.getCurrentUser().id;
+    this.carts = JSON.parse(localStorage.getItem('carts') || '[]');
   }
 
   public getCurrentCart(): Cart | undefined {
-    let carts: Cart[] = JSON.parse(localStorage.getItem('carts') || '[]');
-    let currentCart: Cart | undefined = carts.find(cart => cart.userId === this.userId);
-    return currentCart;
+    this.currentCart = this.carts.find(cart => cart.userId === this.userId);
+    return this.currentCart;
   }
 
   public addProduct(productId: number, wantedQuantity: number): void {
@@ -28,22 +32,19 @@ export class CartService {
     }
     let productList: ProductInCart[] = [productInCart];
 
-    // Tạo biến cart và mảng carts
+    // Tạo biến cart
     let cart: Cart = {
       userId: this.userId,
       productList: productList
     }
-    let carts: Cart[] = [cart];
-
-    // Tạo biến cartsTemp lấy dữ liệu từ localStorage(carts)
-    let cartsTemp: Cart[] = JSON.parse(localStorage.getItem('carts') || '[]');
 
     // Nếu carts trong localStorage chưa có -> Tạo key carts
-    if (cartsTemp.length === 0) {
-      localStorage.setItem('carts', JSON.stringify(carts));
+    if (this.carts.length === 0) {
+      this.carts = [cart]
+      localStorage.setItem('carts', JSON.stringify(this.carts));
     } else {
       // Lấy ra cart của userId hiện tại
-      let currentCart: Cart | undefined = cartsTemp.find(cart => cart.userId === this.userId);
+      let currentCart: Cart | undefined = this.getCurrentCart();
 
       // Nếu tồn tại cart của userId hiện tại
       if (currentCart) {
@@ -58,18 +59,43 @@ export class CartService {
           currentCart?.productList.push(productInCart);
         }
       } else {
-        cartsTemp.push(cart);
+        this.carts.push(cart);
       }
 
       // Lưu dữ liệu cartsTemp vào key carts
-      localStorage.setItem('carts', JSON.stringify(cartsTemp));
+      localStorage.setItem('carts', JSON.stringify(this.carts));
     }
+  }
 
-    // Test
-    console.log('carts:', localStorage.getItem('carts'));
+  public changeQuantityProduct(productId: number, wantedQuantity: number): void {
+    let currentCart = this.getCurrentCart();
+    let currentProductInCart: ProductInCart | undefined =
+      currentCart?.productList.find(productInCart => productInCart.productId === productId);
+    if (currentProductInCart) {
+      currentProductInCart.wantedQuantity = wantedQuantity
+    }
+    localStorage.setItem('carts', JSON.stringify(this.carts))
   }
 
   public removeProduct(productId: number): void {
+    if (!confirm('Bạn có muốn xóa?')) {
+      return;
+    }
+    this.currentCart?.productList.forEach((productInCart, index) => {
+      if (productInCart.productId === productId) this.currentCart?.productList.splice(index, 1);
+    });
+    localStorage.setItem('carts', JSON.stringify(this.carts));
+  }
 
+  public getTotalPrice(): number {
+    let currentCart = this.getCurrentCart();
+    let totalPrice: number = 0;
+    if (currentCart) {
+      currentCart?.productList.forEach(productInCart => {
+        let product = this.productService.getItemById(productInCart.productId);
+        totalPrice += product.price * productInCart.wantedQuantity;
+      });
+    }
+    return totalPrice;
   }
 }
