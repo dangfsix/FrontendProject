@@ -34,4 +34,12 @@ export class CategoryComponent implements OnInit {
   public onChangePage(pageOfItems: any[]): void {
     this.pageOfItems = pageOfItems;
   }
+
+  public filterSidebar(event: any) {
+    this.products = this.categoryService.filterSidebar(event, this.products, this.route);
+  }
+
+  public filterSelect(event: any) {
+    this.products = this.categoryService.filterSelect(event, this.products, this.route);
+  }
 }
