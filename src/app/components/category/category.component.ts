@@ -20,7 +20,7 @@ export class CategoryComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private categoryService: CategoryService,
-    private productService: ProductService,
+    private productService: ProductService
   ) { }
 
   ngOnInit(): void {
