@@ -47,10 +47,10 @@
                 <h2 class="title">{{product.name}}</h2>
 
                 <div class="rating-wrap my-3">
+                    <span class="rating-score me-2">{{product.ratingScore}}</span>
                     <span class="rating-stars me-2" *ngFor="let e of [].constructor(5); index as index">
                         <i class="bi bi-star-fill" [class]="index < product.ratingScore ? 'active' : ''"></i>
                     </span>
-
                     <small class="label-rating text-muted me-2">{{product.ratingNumber}} đánh giá</small>
                     <small class="label-rating text-success"><i class="bi bi-bag-check-fill"></i> {{product.totalBuy}}
                         đã mua</small>
@@ -73,8 +73,8 @@
                     <dd class="col-xl-8 col-sm-7 col-6">{{product.status}}</dd>
                     <dt class="col-xl-4 col-sm-5 col-6">Số lượng</dt>
                     <dd class="col-xl-8 col-sm-7 col-6">
-                        <input #wantedQuantity type="number" class="form-control w-50" value="1" min="1" max="{{product.quantity}}"
-                            step="1" />
+                        <input #wantedQuantity type="number" class="form-control w-50" value="1" min="1"
+                            max="{{product.quantity}}" step="1" />
                     </dd>
                 </dl>
 
