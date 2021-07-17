@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CategoryService} from 'src/app/services/category.service';
-import {ProductService} from 'src/app/services/product.service';
-import {registerLocaleData} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CategoryService } from 'src/app/services/category.service';
+import { ProductService } from 'src/app/services/product.service';
+import { registerLocaleData } from '@angular/common';
 import vi from '@angular/common/locales/vi';
-import {Category, Product} from 'src/app/app.interfaces';
+import { Category, Product } from 'src/app/app.interfaces';
 
 @Component({
   selector: 'app-category',
@@ -12,7 +12,6 @@ import {Category, Product} from 'src/app/app.interfaces';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-
   public category: Category = <Category>{};
   public products: Product[] = [];
   public pageOfItems: any[] = [];
@@ -22,8 +21,7 @@ export class CategoryComponent implements OnInit {
     private router: Router,
     private categoryService: CategoryService,
     private productService: ProductService,
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
     const categoryId = +this.route.snapshot.params['id'];

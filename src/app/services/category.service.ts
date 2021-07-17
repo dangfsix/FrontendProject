@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as data from '../../assets/data/categories.json';
-import {Category, Product} from '../app.interfaces';
-import {ActivatedRoute, Router} from "@angular/router";
-import {ProductService} from "./product.service";
+import { Category, Product } from '../app.interfaces';
+import { ActivatedRoute, Router } from "@angular/router";
+import { ProductService } from "./product.service";
 
 @Injectable({
   providedIn: 'root'
@@ -21,16 +21,16 @@ export class CategoryService {
     return this.categories.find(category => category.id === id)!;
   }
 
-  public removeProductItems(prod: Product[]) {
+  public removeProductItems(products: Product[]) {
     let inputs: any = document.getElementsByClassName("form-check-input");
 
     if (this.hasFilterBrand()) {
       for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < prod.length; j++) {
+        for (let j = 0; j < products.length; j++) {
           if (!inputs[i].checked) {
             let brand = inputs[i].parentElement.lastChild.innerText;
-            if (prod[j].brand == brand) {
-              prod.splice(j, 1);
+            if (products[j].brand == brand) {
+              products.splice(j, 1);
               j--;
             }
           }
@@ -44,43 +44,31 @@ export class CategoryService {
 
     if (this.hasFilterPrice()) {
       if (!pr1.checked) {
-        for (let i = 0; i < prod.length; i++) {
-          if (prod[i].price < 1000000) {
-            prod.splice(i, 1);
+        for (let i = 0; i < products.length; i++) {
+          if (products[i].price < 1000000) {
+            products.splice(i, 1);
             i--;
           }
         }
       }
       if (!pr2.checked) {
-        for (let i = 0; i < prod.length; i++) {
-          if (prod[i].price >= 1000000 && prod[i].price <= 2000000) {
-            prod.splice(i, 1);
+        for (let i = 0; i < products.length; i++) {
+          if (products[i].price >= 1000000 && products[i].price <= 2000000) {
+            products.splice(i, 1);
             i--;
           }
         }
       }
       if (!pr3.checked) {
-        for (let i = 0; i < prod.length; i++) {
-          if (prod[i].price > 2000000) {
-            prod.splice(i, 1);
+        for (let i = 0; i < products.length; i++) {
+          if (products[i].price > 2000000) {
+            products.splice(i, 1);
             i--;
           }
         }
       }
     }
-    return prod;
-  }
-
-  public resetProducts(prod: Product[], route: ActivatedRoute) {
-    prod = this.clearProducts(prod);
-    const categoryId = +route.snapshot.params['id'];
-    prod = this.productService.getListByCategoryId(categoryId);
-    return prod;
-  }
-
-  public clearProducts(prod: Product[]) {
-    prod.splice(0, prod.length);
-    return prod;
+    return products;
   }
 
   public hasFilterBrand() {
@@ -103,36 +91,48 @@ export class CategoryService {
     return false;
   }
 
-  public filterSidebar(event: any, prod: Product[], route: ActivatedRoute) {
-    if (event.target.nodeName == "INPUT" || event.target.nodeName == "LABEL") {
-      prod = this.resetProducts(prod, route);
-      prod = this.removeProductItems(prod);
-    }
-    return prod;
+  public resetProducts(products: Product[], route: ActivatedRoute) {
+    products = this.clearProducts(products);
+    const categoryId = +route.snapshot.params['id'];
+    products = this.productService.getListByCategoryId(categoryId);
+    return products;
   }
 
-  public filterSelect(event: any, prod: Product[], route: ActivatedRoute) {
+  public clearProducts(products: Product[]) {
+    products.splice(0, products.length);
+    return products;
+  }
+
+  public filterSidebar(event: any, products: Product[], route: ActivatedRoute) {
+    if (event.target.nodeName == "INPUT" || event.target.nodeName == "LABEL") {
+      products = this.resetProducts(products, route);
+      products = this.removeProductItems(products);
+    }
+    return products;
+  }
+
+  public filterSelect(event: any, products: Product[], route: ActivatedRoute) {
     let formSelect = document.getElementsByClassName("form-select")[0];
     let a = formSelect.getElementsByTagName("option")[0];
     let b = formSelect.getElementsByTagName("option")[1];
     let c = formSelect.getElementsByTagName("option")[2];
 
     const categoryId = +route.snapshot.params['id'];
-    prod = this.productService.getListByCategoryId(categoryId);
+    products = this.productService.getListByCategoryId(categoryId);
 
     if (this.hasFilterBrand() || this.hasFilterPrice()) {
-      prod = this.removeProductItems(prod);
+      products = this.removeProductItems(products);
     }
 
     if (event.target.value == a.value) {
-      this.productService.sortByTotalBuy(prod);
+      this.productService.sortByTotalBuy(products);
     } else if (event.target.value == b.value) {
-      this.productService.sortBySaleDate(prod);
+      this.productService.sortBySaleDate(products);
     } else if (event.target.value == c.value) {
-      this.productService.sortByHighestRatingScore(prod);
+      this.productService.sortByHighestRatingScore(products);
     } else {
-      this.productService.sortByLowestPrice(prod);
+      this.productService.sortByLowestPrice(products);
     }
-    return prod;
+    return products;
   }
 }
