@@ -58,11 +58,12 @@ export class CartService {
         } else {
           currentCart?.productList.push(productInCart);
         }
-        localStorage.setItem('carts', JSON.stringify(this.carts));
       } else {
         this.carts.push(cart);
-        localStorage.setItem('carts', JSON.stringify(this.carts));
       }
+
+      // Lưu dữ liệu cartsTemp vào key carts
+      localStorage.setItem('carts', JSON.stringify(this.carts));
     }
   }
 

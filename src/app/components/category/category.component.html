@@ -25,30 +25,26 @@
                         </header>
                         <div class="filter-content collapse show" id="collapse_1">
                             <div class="card-body pt-0">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_brand_1"
-                                        checked>
+                                <div class="form-check" (click)="filterSidebar($event)">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_brand_1">
                                     <label class="form-check-label" for="checkbox_brand_1">
                                         Sharp
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_brand_2"
-                                        checked>
+                                <div class="form-check" (click)="filterSidebar($event)">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_brand_2">
                                     <label class="form-check-label" for="checkbox_brand_2">
                                         Toshiba
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_brand_3"
-                                        checked>
+                                <div class="form-check" (click)="filterSidebar($event)">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_brand_3">
                                     <label class="form-check-label" for="checkbox_brand_3">
                                         Panasonic
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_brand_4"
-                                        checked>
+                                <div class="form-check" (click)="filterSidebar($event)">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_brand_4">
                                     <label class="form-check-label" for="checkbox_brand_4">
                                         Midea
                                     </label>
@@ -66,23 +62,20 @@
                         </header>
                         <div class="filter-content collapse show" id="collapse_2">
                             <div class="card-body pt-0">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_price_1"
-                                        checked>
+                                <div class="form-check" (click)="filterSidebar($event)">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_price_1">
                                     <label class="form-check-label" for="checkbox_price_1">
                                         Dưới 1 triệu
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_price_2"
-                                        checked>
+                                <div class="form-check" (click)="filterSidebar($event)">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_price_2">
                                     <label class="form-check-label" for="checkbox_price_2">
                                         Từ 1 - 2 triệu
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_price_3"
-                                        checked>
+                                <div class="form-check" (click)="filterSidebar($event)">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_price_3">
                                     <label class="form-check-label" for="checkbox_price_3">
                                         Trên 2 triệu
                                     </label>
@@ -99,7 +92,7 @@
                     <div class="form-inline d-flex justify-content-between align-items-center">
                         <span>{{products.length}} sản phẩm</span>
                         <div>
-                            <select class="form-select">
+                            <select class="form-select" (change)="filterSelect($event)">
                                 <option>Bán chạy nhất</option>
                                 <option>Mới nhất</option>
                                 <option>Đánh giá cao nhất</option>
@@ -122,9 +115,10 @@
                         </div>
                     </div> <!-- col.// -->
                 </div> <!-- row end.// -->
-                
+
                 <nav class="mt-4">
-                    <jw-pagination [items]="products" (changePage)="onChangePage($event)" [pageSize]="6"></jw-pagination>
+                    <jw-pagination [items]="products" (changePage)="onChangePage($event)" [pageSize]="6">
+                    </jw-pagination>
                 </nav>
 
             </main> <!-- col.// -->

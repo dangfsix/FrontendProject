@@ -8,7 +8,8 @@ import { Product } from '../app.interfaces';
 export class ProductService {
   private products: Product[] = (data as any).default;
 
-  constructor() { }
+  constructor() {
+  }
 
   public getList(): Product[] {
     return this.products;
@@ -26,11 +27,19 @@ export class ProductService {
     return this.products.find(product => product.id === id)!;
   }
 
+  public sortByTotalBuy(products: Product[]) {
+    products.sort((a, b) => b.totalBuy - a.totalBuy);
+  }
+
   public sortBySaleDate(products: Product[]) {
     products.sort((a, b) => Date.parse(b.saleDate) - Date.parse(a.saleDate));
   }
 
-  public sortByTotalBuy(products: Product[]) {
-    products.sort((a, b) => b.totalBuy - a.totalBuy);
+  public sortByHighestRatingScore(products: Product[]) {
+    products.sort((a, b) => b.ratingScore - a.ratingScore);
+  }
+
+  public sortByLowestPrice(products: Product[]) {
+    products.sort((a, b) => a.price - b.price);
   }
 }
