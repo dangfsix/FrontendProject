@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Cart, ProductInCart } from '../app.interfaces';
 import { ProductService } from './product.service';
@@ -17,6 +18,10 @@ export class CartService {
   ) {
     this.userId = this.userService.getCurrentUser().id;
     this.carts = JSON.parse(localStorage.getItem('carts') || '[]');
+  }
+
+  public getUserId(): number{
+    return this.userId;
   }
 
   public getCurrentCart(): Cart | undefined {
@@ -66,7 +71,7 @@ export class CartService {
       localStorage.setItem('carts', JSON.stringify(this.carts));
     }
   }
-
+  
   public changeQuantityProduct(productId: number, wantedQuantity: number): void {
     let currentCart = this.getCurrentCart();
     let currentProductInCart: ProductInCart | undefined =
@@ -77,7 +82,7 @@ export class CartService {
     localStorage.setItem('carts', JSON.stringify(this.carts))
   }
 
-  public removeProduct(productId: number): void {
+  public removeProductFromCart(productId: number): void {
     if (!confirm('Bạn có muốn xóa?')) {
       return;
     }
@@ -87,7 +92,16 @@ export class CartService {
     localStorage.setItem('carts', JSON.stringify(this.carts));
   }
 
-  public getTotalPrice(): number {
+  // xóa tất cả sản phẩm của users hiện tại đang đăng nhập
+  public removeAllProductFromCart(){
+    this.carts?.forEach((element, index) => {
+      if(element.userId == this.userId) this.carts?.splice(index,1);
+    });
+    localStorage.setItem('carts', JSON.stringify(this.carts));
+    
+  }
+
+  public getTempPrice(): number {
     let currentCart = this.getCurrentCart();
     let totalPrice: number = 0;
     if (currentCart) {
@@ -98,4 +112,9 @@ export class CartService {
     }
     return totalPrice;
   }
+
+  public getTotalPrice(deliveryPrice: number): number{
+    return this.getTempPrice() + deliveryPrice;
+  }
+
 }
