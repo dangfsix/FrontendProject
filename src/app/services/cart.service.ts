@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Cart, ProductInCart } from '../app.interfaces';
 import { ProductService } from './product.service';
@@ -20,7 +19,7 @@ export class CartService {
     this.carts = JSON.parse(localStorage.getItem('carts') || '[]');
   }
 
-  public getUserId(): number{
+  public getUserId(): number {
     return this.userId;
   }
 
@@ -45,8 +44,7 @@ export class CartService {
 
     // Nếu carts trong localStorage chưa có -> Tạo key carts
     if (this.carts.length === 0) {
-      this.carts = [cart]
-      localStorage.setItem('carts', JSON.stringify(this.carts));
+      this.carts = [cart];
     } else {
       // Lấy ra cart của userId hiện tại
       let currentCart: Cart | undefined = this.getCurrentCart();
@@ -66,13 +64,13 @@ export class CartService {
       } else {
         this.carts.push(cart);
       }
-
-      // Lưu dữ liệu cartsTemp vào key carts
-      localStorage.setItem('carts', JSON.stringify(this.carts));
     }
+
+    // Lưu dữ liệu cartsTemp vào key carts
+    localStorage.setItem('carts', JSON.stringify(this.carts));
   }
-  
-  public changeQuantityProduct(productId: number, wantedQuantity: number): void {
+
+  public changeWantedQuantity(productId: number, wantedQuantity: number): void {
     let currentCart = this.getCurrentCart();
     let currentProductInCart: ProductInCart | undefined =
       currentCart?.productList.find(productInCart => productInCart.productId === productId);
@@ -92,29 +90,25 @@ export class CartService {
     localStorage.setItem('carts', JSON.stringify(this.carts));
   }
 
-  // xóa tất cả sản phẩm của users hiện tại đang đăng nhập
-  public removeAllProductFromCart(){
-    this.carts?.forEach((element, index) => {
-      if(element.userId == this.userId) this.carts?.splice(index,1);
-    });
+  // Xóa tất cả sản phẩm của user hiện tại đang đăng nhập
+  public removeAllProductFromCart() {
+    this.currentCart!.productList = [];
     localStorage.setItem('carts', JSON.stringify(this.carts));
-    
   }
 
   public getTempPrice(): number {
+    let tempPrice: number = 0;
     let currentCart = this.getCurrentCart();
-    let totalPrice: number = 0;
     if (currentCart) {
       currentCart?.productList.forEach(productInCart => {
         let product = this.productService.getItemById(productInCart.productId);
-        totalPrice += product.price * productInCart.wantedQuantity;
+        tempPrice += product.price * productInCart.wantedQuantity;
       });
     }
-    return totalPrice;
+    return tempPrice;
   }
 
-  public getTotalPrice(deliveryPrice: number): number{
+  public getTotalPrice(deliveryPrice: number): number {
     return this.getTempPrice() + deliveryPrice;
   }
-
 }

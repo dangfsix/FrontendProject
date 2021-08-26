@@ -44,19 +44,18 @@ export interface Cart {
     productList: ProductInCart[];
 }
 
-export interface ProductItemInOrder {
+export interface ProductInOrder {
     productId: number;
     wantedQuantity: number;
     historicalPrice: number;
 }
 
-
-export interface Order{
+export interface Order {
     id: string;
     buyDate: string;
     userId: number;
     deliveryMethod: string;
     deliveryPrice: number;
-    totalPrice: number;
-    productList: ProductItemInOrder[];
+    discountedPrice: number;
+    productList: ProductInOrder[];
 }

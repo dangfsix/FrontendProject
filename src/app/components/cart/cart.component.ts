@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import vi from '@angular/common/locales/vi';
 import { Cart, Product } from 'src/app/app.interfaces';
@@ -12,9 +12,9 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  public deliveryPrice: string = '0';
-  public tempPrice = this.cartService.getTempPrice();
-  public totalPrice = this.cartService.getTotalPrice(Number(this. deliveryPrice));
+  public deliveryPrice: string = '10000';
+  public tempPrice: number = 0;
+  public totalPrice: number = 0;
   public cart: Cart | undefined;
 
   constructor(
@@ -25,50 +25,43 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.cart = this.cartService.getCurrentCart();
+    this.updatePrices();
     registerLocaleData(vi);
   }
 
-  // lấy thông tin sản phẩm theo Id
+  // Lấy thông tin sản phẩm theo id
   public getProduct(productId: number): Product {
     return this.productService.getItemById(productId);
   }
 
-  // xóa 1 sản phẩm ra khỏi cart
+  // Xóa 1 sản phẩm ra khỏi cart
   public removeProductFromCart(productId: number): void {
     this.cartService.removeProductFromCart(productId);
-    this.updateDataFromCart();
+    this.updatePrices();
   }
 
   // Thay đổi số lượng sản phẩm
-  public saveRange(productId: number, wantedQuantity: number): void {
-    this.cartService.changeQuantityProduct(productId, wantedQuantity);
-    this.updateDataFromCart();
-  }
-
-  // Cập nhật giá nếu như có sự thay đổi ở hình thức toán
-  public getDeliveryPrice(){
-    this.updateDataFromCart();
+  public changeWantedQuantity(productId: number, wantedQuantity: number): void {
+    this.cartService.changeWantedQuantity(productId, wantedQuantity);
+    this.updatePrices();
   }
 
   // Đặt hàng
-  public orderProduct():void{
-    // nếu chưa đăng nhậ(underfine) hoặc productLists rỗng hoặc chưa chọn hình thức thanh toán
-    if(this.cart == undefined || !this.cart.productList.length || this.deliveryPrice == '0'){
-      alert('Vui lòng đăng nhập, thêm sản phẩm trong giỏ hàng và chọn hình thức thanh toán');
+  public createOrder(): void {
+    // Nếu chưa đăng nhập hoặc productList rỗng hoặc chưa chọn hình thức vận chuyển
+    if (this.cart == undefined || !this.cart.productList.length || this.deliveryPrice == '0') {
+      alert('Vui lòng đăng nhập, thêm sản phẩm trong giỏ hàng và chọn hình thức vận chuyển.');
       return;
-    }else{
-      this.orderService.orderProduct(this.cart, Number(this. deliveryPrice), this.totalPrice);
+    } else {
+      this.orderService.createOrder(this.cart, +this.deliveryPrice);
       this.cartService.removeAllProductFromCart();
-      this.updateDataFromCart()
+      this.updatePrices();
     }
-   
   }
 
-  // Cập nhật toàn bộ dữ liệu cho cart khi có bất kì thay đổi(Hàm cập nhật chung)
-  public updateDataFromCart(){
+  // Cập nhật giá
+  public updatePrices() {
     this.tempPrice = this.cartService.getTempPrice();
-    this.totalPrice = this.cartService.getTotalPrice(Number(this. deliveryPrice));
-    this.cart = this.cartService.getCurrentCart();
+    this.totalPrice = this.cartService.getTotalPrice(+this.deliveryPrice);
   }
-
 }
