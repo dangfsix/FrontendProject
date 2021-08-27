@@ -59,3 +59,12 @@ export interface Order {
     discountedPrice: number;
     productList: ProductInOrder[];
 }
+
+export interface Comment {
+    commentId: number;
+    productId: number;
+    userId: number;
+    date: string;
+    ratingScore: number;
+    commentText: string;
+}
