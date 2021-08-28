@@ -1,12 +1,6 @@
 <section class="section-pagetop bg-light">
     <div class="container">
-        <h2 class="title-page">{{category.name}}</h2>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item" aria-current="page"><a routerLink="">Trang chủ</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{category.name}}</li>
-            </ol>
-        </nav>
+        <h2 class="title-page">Kết quả tìm kiếm của "{{keyword}}"</h2>
     </div> <!-- container.// -->
 </section> <!-- section-pagetop.// -->
 
@@ -109,7 +103,9 @@
                                 <img class="img-fluid" [src]="product.img">
                             </a>
                             <figcaption class="info-wrap mt-2">
-                                <a [routerLink]="['/product', product.id]" class="title">{{product.name}}</a>
+                                <a [routerLink]="['/product', product.id]" class="title" appHighlight
+                                    [searchedWord]="keyword" [content]="product.name"
+                                    [classToApply]="'fw-bold'">{{product.name}}</a>
                                 <div class="price mt-1 fw-bold">{{product.price | number:'':'vi'}}₫</div>
                             </figcaption>
                         </div>

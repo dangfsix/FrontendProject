@@ -5,6 +5,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { HomeComponent } from './components/home/home.component';
 import { OrderComponent } from './components/order/order.component';
 import { ProductComponent } from './components/product/product.component';
+import { SearchComponent } from './components/search/search.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { UserComponent } from './components/user/user.component';
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'product/:id', component: ProductComponent },
   { path: 'cart', component: CartComponent },
   { path: 'order', component: OrderComponent },
-  { path: 'user', component: UserComponent }
+  { path: 'user', component: UserComponent },
+  { path: 'search', component: SearchComponent }
 ];
 
 @NgModule({

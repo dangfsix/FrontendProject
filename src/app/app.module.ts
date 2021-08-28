@@ -19,6 +19,9 @@ import { OrderComponent } from './components/order/order.component';
 import { UserComponent } from './components/user/user.component';
 import { UserService } from './services/user.service';
 import { CartService } from './services/cart.service';
+import { FilterPipe } from './pipes/filter.pipe';
+import { HighlightDirective } from './directives/highlight.directive';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { CartService } from './services/cart.service';
     ProductComponent,
     CartComponent,
     OrderComponent,
-    UserComponent
+    UserComponent,
+    FilterPipe,
+    HighlightDirective,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +50,8 @@ import { CartService } from './services/cart.service';
     CategoryService,
     ProductService,
     UserService,
-    CartService
+    CartService,
+    FilterPipe
   ],
   bootstrap: [AppComponent]
 })
