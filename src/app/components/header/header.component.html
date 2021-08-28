@@ -7,15 +7,27 @@
                         <h3>Shop Gia Dụng</h3>
                     </a>
                 </div> <!-- col.// -->
-                <div class="col-lg-4 col-xl-5">
-                    <form action="#" class="search" _lpchecked="1">
+                <div class="search col-lg-4 col-xl-5">
+                    <form (ngSubmit)="onSubmit()">
                         <div class="input-group w-100">
-                            <input type="text" class="form-control" placeholder="Nhập từ khóa cần tìm ...">
-                            <button class="btn btn-primary" type="button">
+                            <input [(ngModel)]="searchText" (focus)="onFocus()" (blur)="onBlur()" (input)="onChange()"
+                                type="text" class="form-control" placeholder="Nhập từ khóa cần tìm ..."
+                                name="search-box">
+                            <button class="btn btn-primary" type="submit">
                                 <i class="bi bi-search"></i>
                             </button>
                         </div>
                     </form>
+                    <ul class="search-result list-group" *ngIf="showResult">
+                        <li class="list-group-item" *ngFor="let product of searchResults">
+                            <a [routerLink]="['/product', product.id]" (mousedown)="$event.preventDefault()"
+                                class="search-item">
+                                <img class="search-item__thumb" [src]="product.img" width="35" height="35">
+                                <span class="search-item__title ms-3" appHighlight [searchedWord]="searchText"
+                                    [content]="product.name" [classToApply]="'fw-bold'">{{product.name}}</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div> <!-- col.// -->
                 <div class="col-lg-5 col-xl-4">
                     <ul
