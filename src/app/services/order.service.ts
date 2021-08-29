@@ -16,7 +16,7 @@ export class OrderService {
     this.orders = JSON.parse(localStorage.getItem('orders') || '[]');
   }
 
-  public createOrder(cart: Cart, deliveryPrice: number): void {
+  public createOrder(cart: Cart, deliveryPrice: number, discountedPrice: number): void {
     let productList: ProductInOrder[] = [];
 
     // Lấy sản phẩm từ cart ra
@@ -36,7 +36,7 @@ export class OrderService {
       userId: cart.userId,
       deliveryMethod: (deliveryPrice == 10000) ? 'Giao tiêu chuẩn' : 'Giao nhanh',
       deliveryPrice: deliveryPrice,
-      discountedPrice: 0,
+      discountedPrice: discountedPrice,
       productList: productList
     }
 

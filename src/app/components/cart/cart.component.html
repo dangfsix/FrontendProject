@@ -88,12 +88,14 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <p class="card-title">Mã giảm giá</p>
-                        <form action="">
+                        <form (ngSubmit)="onSubmitDiscount()">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="">
-                                <button class="btn btn-primary" type="button">Áp dụng</button>
+                                <input [(ngModel)]="discountCode" type="text" class="form-control" name="discount-box">
+                                <button class="btn btn-primary" type="submit">Áp dụng</button>
                             </div>
                         </form>
+                        <span class="badge bg-success me-1" *ngFor="let discount of discounts" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" [title]="discount.description">{{discount.code}}</span>
                     </div> <!-- card-body.// -->
                 </div> <!-- card.// -->
 
@@ -104,6 +106,9 @@
                             <dd class="col-xxl-6 col-lg-12 col-6 text-end mb-3">{{tempPrice | number:'':'vi'}}₫</dd>
                             <dt class="col-xxl-6 col-lg-12 col-6">Phí vận chuyển:</dt>
                             <dd class="col-xxl-6 col-lg-12 col-6 text-end mb-3">{{deliveryPrice | number:'':'vi'}}₫</dd>
+                            <dt class="col-xxl-6 col-lg-12 col-6">Giảm giá:</dt>
+                            <dd class="col-xxl-6 col-lg-12 col-6 text-end mb-3">{{discountedPrice | number:'':'vi'}}₫
+                            </dd>
                             <dt class="col-xxl-6 col-lg-12 col-6">Tổng cộng:</dt>
                             <dd class="col-xxl-6 col-lg-12 col-6 text-end mb-3">
                                 <strong>{{totalPrice | number:'':'vi'}}₫</strong>
