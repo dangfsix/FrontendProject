@@ -108,7 +108,7 @@ export class CartService {
     return tempPrice;
   }
 
-  public getTotalPrice(deliveryPrice: number): number {
-    return this.getTempPrice() + deliveryPrice;
+  public getTotalPrice(deliveryPrice: number, discountedPrice: number): number {
+    return this.getTempPrice() + deliveryPrice - discountedPrice;
   }
 }

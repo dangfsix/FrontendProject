@@ -1,0 +1,17 @@
+[
+  {
+    "code": "ABC5",
+    "percent": 0.05,
+    "description": "Giảm 5% hóa đơn"
+  },
+  {
+    "code": "DEF10",
+    "percent": 0.10,
+    "description": "Giảm 10% hóa đơn"
+  },
+  {
+    "code": "XYZ20",
+    "percent": 0.20,
+    "description": "Giảm 20% hóa đơn"
+  }
+]

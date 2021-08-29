@@ -59,3 +59,9 @@ export interface Order {
     discountedPrice: number;
     productList: ProductInOrder[];
 }
+
+export interface Discount {
+    code: string;
+    percent: number;
+    description: string;
+}
