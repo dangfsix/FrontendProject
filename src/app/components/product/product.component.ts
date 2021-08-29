@@ -6,6 +6,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { registerLocaleData } from '@angular/common';
 import vi from '@angular/common/locales/vi';
 import { CartService } from 'src/app/services/cart.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-product',
@@ -22,7 +23,8 @@ export class ProductComponent implements OnInit {
     private router: Router,
     private productService: ProductService,
     private categoryService: CategoryService,
-    private cartService: CartService
+    private cartService: CartService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -36,5 +38,6 @@ export class ProductComponent implements OnInit {
 
   public addProductToCart(productId: number, wantedQuantity: number): void {
     this.cartService.addProduct(productId, wantedQuantity);
+    this.toastService.show(`Đã thêm ${wantedQuantity} sản phẩm ${this.product.name} vào giỏ hàng.`)
   }
 }

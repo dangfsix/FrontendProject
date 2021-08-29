@@ -45,6 +45,5 @@ export class OrderService {
 
     // Lưu vào localStorage
     localStorage.setItem('orders', JSON.stringify(this.orders));
-    alert('Đặt hàng thành công');
   }
 }

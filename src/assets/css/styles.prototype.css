@@ -112,3 +112,9 @@ a {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/* toast */
+
+.toast-container {
+    z-index: 1;
+}

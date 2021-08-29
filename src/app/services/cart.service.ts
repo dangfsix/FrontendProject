@@ -81,9 +81,6 @@ export class CartService {
   }
 
   public removeProductFromCart(productId: number): void {
-    if (!confirm('Bạn có muốn xóa?')) {
-      return;
-    }
     this.currentCart?.productList.forEach((productInCart, index) => {
       if (productInCart.productId === productId) this.currentCart?.productList.splice(index, 1);
     });
