@@ -24,6 +24,8 @@ import { HighlightDirective } from './directives/highlight.directive';
 import { SearchComponent } from './components/search/search.component';
 import { DiscountService } from './services/discount.service';
 import { ScriptService } from './services/script.service';
+import { ToastComponent } from './components/toast/toast.component';
+import { ToastService } from './services/toast.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { ScriptService } from './services/script.service';
     UserComponent,
     FilterPipe,
     HighlightDirective,
-    SearchComponent
+    SearchComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { ScriptService } from './services/script.service';
     CartService,
     FilterPipe,
     DiscountService,
-    ScriptService
+    ScriptService,
+    ToastService
   ],
   bootstrap: [AppComponent]
 })

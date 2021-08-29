@@ -7,6 +7,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { OrderService } from 'src/app/services/order.service';
 import { DiscountService } from 'src/app/services/discount.service';
 import { ScriptService } from 'src/app/services/script.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-cart',
@@ -27,7 +28,8 @@ export class CartComponent implements OnInit {
     private productService: ProductService,
     private orderService: OrderService,
     private discountService: DiscountService,
-    private scriptService: ScriptService
+    private scriptService: ScriptService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -45,9 +47,13 @@ export class CartComponent implements OnInit {
 
   // Xóa 1 sản phẩm ra khỏi cart
   public removeProductFromCart(productId: number): void {
+    if (!confirm('Bạn có muốn xóa?')) {
+      return;
+    }
     this.cartService.removeProductFromCart(productId);
     this.updateDiscountedPrice();
     this.updatePrices();
+    this.toastService.show(`Đã xóa sản phẩm ${this.getProduct(productId).name}.`)
   }
 
   // Thay đổi số lượng sản phẩm
@@ -60,10 +66,10 @@ export class CartComponent implements OnInit {
   // Đặt hàng
   public createOrder(): void {
     // Nếu chưa đăng nhập hoặc productList rỗng hoặc chưa chọn hình thức vận chuyển
-    if (this.cart == undefined || !this.cart.productList.length || this.deliveryPrice == '0') {
-      alert('Vui lòng đăng nhập, thêm sản phẩm trong giỏ hàng và chọn hình thức vận chuyển.');
+    if (!this.cart || !this.cart.productList.length || this.deliveryPrice == '0') {
+      this.toastService.show('Vui lòng thêm sản phẩm vào giỏ hàng.');
       return;
-    } else {
+    } else if(confirm('Bạn có muốn đặt hàng?')) {
       this.orderService.createOrder(this.cart, +this.deliveryPrice, this.discountedPrice);
       this.cartService.removeAllProductFromCart();
       // Reset prices
@@ -73,6 +79,7 @@ export class CartComponent implements OnInit {
         this.discountedPrice = 0;
       }
       this.updatePrices();
+      this.toastService.show('Đặt hàng thành công!');
     }
   }
 
@@ -85,17 +92,17 @@ export class CartComponent implements OnInit {
   // Nhập mã giảm giá
   public onSubmitDiscount(): void {
     if (!this.cart || !this.cart.productList.length) {
-      alert('Vui lòng thêm sản phẩm.')
+      this.toastService.show('Vui lòng thêm sản phẩm vào giỏ hàng.')
       return;
     }
 
     if (this.discountCode === '' && this.discountedPrice === 0) {
-      alert('Vui lòng không bỏ trống.');
+      this.toastService.show('Vui lòng không bỏ trống.');
       return;
     }
 
     if (this.discountCode === '' && this.discountedPrice !== 0) {
-      alert('Đã xóa mã giảm giá.');
+      this.toastService.show('Đã xóa mã giảm giá.');
       this.discountedPrice = 0;
       this.updatePrices();
       return;
@@ -104,11 +111,13 @@ export class CartComponent implements OnInit {
     let discount: Discount | undefined = this.discounts.find(discount => discount.code === this.discountCode);
 
     if (!discount) {
-      alert('Vui lòng điền đúng mã giảm giá.');
+      this.toastService.show('Vui lòng điền đúng mã giảm giá.');
+      this.discountedPrice = 0;
+      this.updatePrices();
       return;
     }
 
-    alert(`Đã giảm giá theo mã ${this.discountCode}.`);
+    this.toastService.show(`Đã giảm giá theo mã ${this.discountCode}.`);
     this.discountedPrice = Math.round(this.tempPrice * discount.percent);
     this.updatePrices();
   }
