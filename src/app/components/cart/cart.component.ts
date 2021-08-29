@@ -6,6 +6,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { OrderService } from 'src/app/services/order.service';
 import { DiscountService } from 'src/app/services/discount.service';
+import { ScriptService } from 'src/app/services/script.service';
 
 @Component({
   selector: 'app-cart',
@@ -25,7 +26,8 @@ export class CartComponent implements OnInit {
     private cartService: CartService,
     private productService: ProductService,
     private orderService: OrderService,
-    private discountService: DiscountService
+    private discountService: DiscountService,
+    private scriptService: ScriptService
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +35,7 @@ export class CartComponent implements OnInit {
     this.discounts = this.discountService.getList();
     this.updatePrices();
     registerLocaleData(vi);
+    this.scriptService.load();
   }
 
   // Lấy thông tin sản phẩm theo id

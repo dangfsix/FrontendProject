@@ -23,6 +23,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { HighlightDirective } from './directives/highlight.directive';
 import { SearchComponent } from './components/search/search.component';
 import { DiscountService } from './services/discount.service';
+import { ScriptService } from './services/script.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { DiscountService } from './services/discount.service';
     UserService,
     CartService,
     FilterPipe,
-    DiscountService
+    DiscountService,
+    ScriptService
   ],
   bootstrap: [AppComponent]
 })
