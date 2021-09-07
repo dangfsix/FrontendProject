@@ -1,4 +1,6 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Cart, Order, ProductInOrder } from '../app.interfaces';
 import { CartService } from './cart.service';
 import { ProductService } from './product.service';
@@ -8,6 +10,9 @@ import { ProductService } from './product.service';
 })
 export class OrderService {
   private orders: Order[];
+  private orderCurrent: Order[] = [];
+  private orderCurrent$:BehaviorSubject<Order[]> =  new BehaviorSubject<Order[]>([]);
+ 
 
   constructor(
     private cartService: CartService,
@@ -32,7 +37,8 @@ export class OrderService {
     // Tạo ra 1 order truyền các thông tin của cart hiện tại vào
     let order: Order = {
       id: Math.random().toString().slice(2, 12),
-      buyDate: new Date().toLocaleDateString(),
+    // buyDate: new Date().toLocaleDateString(), //dd/mm/yyyy
+      buyDate: new Date().toISOString().slice(0,10),  // yyyy-mm-dd
       userId: cart.userId,
       deliveryMethod: (deliveryPrice == 10000) ? 'Giao tiêu chuẩn' : 'Giao nhanh',
       deliveryPrice: deliveryPrice,
@@ -45,5 +51,23 @@ export class OrderService {
 
     // Lưu vào localStorage
     localStorage.setItem('orders', JSON.stringify(this.orders));
+  }
+
+    public getCurrentOrderByUserId(userId: Number): Observable<Order[]> {
+      this.orders.forEach(order =>{
+        if(order.userId == userId){
+          this.orderCurrent.push(order);
+        }
+      })
+     this.orderCurrent$.next(this.orderCurrent);
+     return  this.orderCurrent$;
+   }
+
+   public cancelAnOrderByOrderId(id: string){
+    this.orderCurrent.forEach((item,index) =>{
+      if(item.id == id) this.orderCurrent.splice(index, 1); 
+    })
+    this.orderCurrent$.next(this.orderCurrent);
+    localStorage.setItem('orders', JSON.stringify(this.orderCurrent));
   }
 }
