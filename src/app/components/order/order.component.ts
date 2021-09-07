@@ -43,6 +43,7 @@ export class OrderComponent implements OnInit {
       return;
     }
     this.orderService.cancelAnOrderByOrderId(id);
+    this.onChangePage(this.items);
   }
 
   public getTempPrice(order: Order): number | undefined{

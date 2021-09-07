@@ -33,9 +33,11 @@ export class CartComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.cart = this.cartService.getCurrentCart();
-    this.discounts = this.discountService.getList();
+    this.cartService.currentCart$.subscribe(cart => this.cart = cart);;
+    this.cartService.tempPrice$.subscribe(tempPrice => this.tempPrice = tempPrice);
+    this.cartService.totalPrice$.subscribe(totalPrice => this.totalPrice = totalPrice);
     this.updatePrices();
+    this.discounts = this.discountService.getList();
     registerLocaleData(vi);
     this.scriptService.load();
   }
@@ -72,7 +74,7 @@ export class CartComponent implements OnInit {
     } else if(confirm('Bạn có muốn đặt hàng?')) {
       this.orderService.createOrder(this.cart, +this.deliveryPrice, this.discountedPrice);
       this.cartService.removeAllProductFromCart();
-      // Reset prices
+      // Reset prices 
       this.deliveryPrice = '10000';
       if (this.discountCode) {
         this.discountCode = '';
@@ -85,8 +87,9 @@ export class CartComponent implements OnInit {
 
   // Cập nhật giá
   public updatePrices(): void {
-    this.tempPrice = this.cartService.getTempPrice();
-    this.totalPrice = this.cartService.getTotalPrice(+this.deliveryPrice, this.discountedPrice);
+    this.cartService.getCurrentCart();
+    this.cartService.getTempPrice();
+    this.cartService.getTotalPrice(+this.deliveryPrice, this.discountedPrice);
   }
 
   // Nhập mã giảm giá
@@ -126,7 +129,7 @@ export class CartComponent implements OnInit {
     if (this.discountCode && this.discountedPrice !== 0) {
       let discount: Discount | undefined = this.discounts.find(discount => discount.code === this.discountCode);
       if (discount) {
-        this.discountedPrice = Math.round(this.cartService.getTempPrice() * discount.percent);
+        this.discountedPrice = Math.round(this.tempPrice * discount.percent);
       }
     }
   }
