@@ -43,6 +43,7 @@ export class OrderService {
       deliveryMethod: (deliveryPrice == 10000) ? 'Giao tiêu chuẩn' : 'Giao nhanh',
       deliveryPrice: deliveryPrice,
       discountedPrice: discountedPrice,
+      status: "true",
       productList: productList
     }
 
@@ -55,7 +56,7 @@ export class OrderService {
 
     public getCurrentOrderByUserId(userId: Number): Observable<Order[]> {
       this.orders.forEach(order =>{
-        if(order.userId == userId){
+        if(order.userId == userId && order.status == "true"){
           this.orderCurrent.push(order);
         }
       })
@@ -65,9 +66,12 @@ export class OrderService {
 
    public cancelAnOrderByOrderId(id: string){
     this.orderCurrent.forEach((item,index) =>{
-      if(item.id == id) this.orderCurrent.splice(index, 1); 
+      if(item.id == id){
+        item.status = "cancelled";
+        localStorage.setItem('orders', JSON.stringify(this.orderCurrent));
+        this.orderCurrent.splice(index, 1);
+      } 
     })
     this.orderCurrent$.next(this.orderCurrent);
-    localStorage.setItem('orders', JSON.stringify(this.orderCurrent));
   }
 }

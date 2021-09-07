@@ -57,6 +57,7 @@ export interface Order {
     deliveryMethod: string;
     deliveryPrice: number;
     discountedPrice: number;
+    status: string;
     productList: ProductInOrder[];
 }
 
