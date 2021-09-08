@@ -15,6 +15,7 @@ export class CartService {
   public currentCart$: BehaviorSubject<any> = new BehaviorSubject<any>({});
   public tempPrice$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public totalPrice$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  public totalProduct$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor(
     private userService: UserService,
@@ -51,34 +52,30 @@ export class CartService {
     }
 
     // Nếu carts trong localStorage chưa có -> Tạo key carts
-    console.log("cart: "+this.carts.length)
     if (this.carts.length === 0) {
-      console.log('vo day nek0')
       this.carts = [cart];
     } else {
       this.getCurrentCart();
       // Nếu tồn tại cart của userId hiện tại
       if (this.currentCart) {
-        console.log('vo day nek')
         // Lấy ra productInCart của productId hiện tại
         let currentProductInCart: ProductInCart | undefined =
           this.currentCart?.productList.find(productInCart => productInCart.productId === productId);
 
         // Nếu tồn tại productInCart của productId hiện tại
         if (currentProductInCart) {
-          console.log('vo day nek2')
           currentProductInCart.wantedQuantity += wantedQuantity;
         } else {
-          console.log('vo day ne3')
           this.currentCart?.productList.push(productInCart);
         }
       } else {
-        console.log('vo day nek4')
         this.carts.push(cart);
       }
     }
     // cập nhật lại currentCart của cho những nói nó đăng kí
     this.currentCart$.next(this.currentCart);
+    //cập nhật lại số lượng
+    this.getTotalProduct();
     // Lưu dữ liệu cartsTemp vào key carts
     localStorage.setItem('carts', JSON.stringify(this.carts));
   }
@@ -90,6 +87,8 @@ export class CartService {
     if (currentProductInCart) {
       currentProductInCart.wantedQuantity = wantedQuantity
     }
+    // cập nhật lại số lượng
+    this.getTotalProduct();
     localStorage.setItem('carts', JSON.stringify(this.carts))
   }
 
@@ -99,6 +98,8 @@ export class CartService {
     });
     localStorage.setItem('carts', JSON.stringify(this.carts));
     this.currentCart$.next(this.currentCart);
+     // cập nhật lại số lượng
+    this.getTotalProduct();
   }
 
   // Xóa tất cả sản phẩm của user hiện tại đang đăng nhập
@@ -106,6 +107,8 @@ export class CartService {
     this.currentCart!.productList = [];
     this.currentCart$.next(this.currentCart);
     localStorage.setItem('carts', JSON.stringify(this.carts));
+     // cập nhật lại số lượng
+    this.getTotalProduct();
   }
 
   public getTempPrice(): number {
@@ -118,11 +121,19 @@ export class CartService {
     }
     this.tempPrice$.next(tempPrice)
     return tempPrice;
-
   }
 
   public getTotalPrice(deliveryPrice: number, discountedPrice: number){
     let totalPrice = this.getTempPrice() + deliveryPrice - discountedPrice;
     this.totalPrice$.next(totalPrice)
+  }
+
+  public getTotalProduct() {
+    let count: number = 0;
+    this.currentCart?.productList.forEach(item =>{
+      count += item.wantedQuantity; 
+    })
+     // cập nhật số lượng
+    this.totalProduct$.next(count);
   }
 }
