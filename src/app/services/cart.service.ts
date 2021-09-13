@@ -23,8 +23,7 @@ export class CartService {
   ) {
     this.userId = this.userService.getCurrentUser().id;
     this.carts = JSON.parse(localStorage.getItem('carts') || '[]');
-    this.getCurrentCart();
-    console.log('Current cart nek ' + this.currentCart)
+  
   }
 
   public getUserId(): number {
@@ -34,6 +33,7 @@ export class CartService {
   public getCurrentCart(): Observable<Cart> {
     this.currentCart = this.carts.find(cart => cart.userId === this.userId);
     this.currentCart$.next(this.currentCart);
+    this.getTotalProduct();
     return this.currentCart$;  
   }
 

@@ -36,6 +36,7 @@ export class CartComponent implements OnInit {
     this.cartService.currentCart$.subscribe(cart => this.cart = cart);;
     this.cartService.tempPrice$.subscribe(tempPrice => this.tempPrice = tempPrice);
     this.cartService.totalPrice$.subscribe(totalPrice => this.totalPrice = totalPrice);
+    this.cartService.getCurrentCart();
     this.updatePrices();
     this.discounts = this.discountService.getList();
     registerLocaleData(vi);

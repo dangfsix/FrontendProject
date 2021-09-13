@@ -26,6 +26,7 @@ export class OrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderService.orderCurrent$.subscribe((orders: Order[]) => {this.orders = orders; this.items = orders});
+    this.orderService.getCurrentOrderByUserId(this.userId);
     this.userInfor = this.userService.getItemById(this.userId);
     registerLocaleData(vi);
   }

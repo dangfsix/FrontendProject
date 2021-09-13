@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.cartService.totalProduct$.subscribe(totalProduct => this.totalProduct = totalProduct)
-    console.log(this.totalProduct)
+    this.cartService.getCurrentCart();
   }
 
   public onChange(): void {

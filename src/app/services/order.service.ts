@@ -10,7 +10,7 @@ import { ProductService } from './product.service';
 })
 export class OrderService {
   private orders: Order[];
-  private orderCurrent: Order[] = [];
+  public orderCurrent: Order[] = [];
   public  orderCurrent$:BehaviorSubject<Order[]> =  new BehaviorSubject<Order[]>([]);
  
 
@@ -19,9 +19,6 @@ export class OrderService {
     private productService: ProductService
   ) {
     this.orders = JSON.parse(localStorage.getItem('orders') || '[]');
-    // khởi tạo lấy order theo user truyền vô orderCurrent để làm order trung gian 
-    //cho orderCurrent$ mỗi khi có thay đổi thì next(orderCurrent)
-    this.getCurrentOrderByUserId(this.cartService.getUserId())
   }
 
   public createOrder(cart: Cart, deliveryPrice: number, discountedPrice: number): void {
@@ -60,22 +57,24 @@ export class OrderService {
   }
     // lấy order hiện tại của user id
     public getCurrentOrderByUserId(userId: number){
+      // trước tiên fai cho Ordercurrent  rỗng
+      this.orderCurrent = [];
       this.orders.forEach(order =>{
         if(order.userId == userId && order.status == "true"){
           this.orderCurrent.push(order);
         }
       })
+      this.orderCurrent$.next(this.orderCurrent);
    }
+
    // hủy đơn hàng
    public cancelAnOrderByOrderId(id: string){
-    this.orderCurrent.forEach((item,index) =>{
+    this.orders.forEach((item,index) =>{
       if(item.id == id){
         item.status = "cancelled";
-        localStorage.setItem('orders', JSON.stringify(this.orderCurrent));
-        this.orderCurrent.splice(index, 1);
-      } 
+        localStorage.setItem('orders', JSON.stringify(this.orders));
+     } 
     })
-    // cập nhật 
-    this.orderCurrent$.next(this.orderCurrent);
+    this.getCurrentOrderByUserId(this.cartService.getUserId())
   }
 }
