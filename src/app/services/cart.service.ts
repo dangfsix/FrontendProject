@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Cart, ProductInCart } from '../app.interfaces';
 import { ProductService } from './product.service';
 import { UserService } from './user.service';
@@ -11,7 +11,7 @@ export class CartService {
   private userId: number = 0;
   private carts: Cart[] = [];
   private currentCart?: Cart;
- 
+
   public currentCart$: BehaviorSubject<any> = new BehaviorSubject<any>({});
   public tempPrice$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public totalPrice$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
@@ -23,7 +23,7 @@ export class CartService {
   ) {
     this.userId = this.userService.getCurrentUser().id;
     this.carts = JSON.parse(localStorage.getItem('carts') || '[]');
-  
+
   }
 
   public getUserId(): number {
@@ -34,7 +34,7 @@ export class CartService {
     this.currentCart = this.carts.find(cart => cart.userId === this.userId);
     this.currentCart$.next(this.currentCart);
     this.getTotalProduct();
-    return this.currentCart$;  
+    return this.currentCart$;
   }
 
   public addProduct(productId: number, wantedQuantity: number): void {
@@ -98,7 +98,7 @@ export class CartService {
     });
     localStorage.setItem('carts', JSON.stringify(this.carts));
     this.currentCart$.next(this.currentCart);
-     // cập nhật lại số lượng
+    // cập nhật lại số lượng
     this.getTotalProduct();
   }
 
@@ -107,7 +107,7 @@ export class CartService {
     this.currentCart!.productList = [];
     this.currentCart$.next(this.currentCart);
     localStorage.setItem('carts', JSON.stringify(this.carts));
-     // cập nhật lại số lượng
+    // cập nhật lại số lượng
     this.getTotalProduct();
   }
 
@@ -123,17 +123,17 @@ export class CartService {
     return tempPrice;
   }
 
-  public getTotalPrice(deliveryPrice: number, discountedPrice: number){
+  public getTotalPrice(deliveryPrice: number, discountedPrice: number) {
     let totalPrice = this.getTempPrice() + deliveryPrice - discountedPrice;
     this.totalPrice$.next(totalPrice)
   }
 
   public getTotalProduct() {
     let count: number = 0;
-    this.currentCart?.productList.forEach(item =>{
-      count += item.wantedQuantity; 
+    this.currentCart?.productList.forEach(item => {
+      count += item.wantedQuantity;
     })
-     // cập nhật số lượng
+    // cập nhật số lượng
     this.totalProduct$.next(count);
   }
 }

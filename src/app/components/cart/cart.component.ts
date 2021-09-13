@@ -72,7 +72,7 @@ export class CartComponent implements OnInit {
     if (!this.cart || !this.cart.productList.length || this.deliveryPrice == '0') {
       this.toastService.show('Vui lòng thêm sản phẩm vào giỏ hàng.');
       return;
-    } else if(confirm('Bạn có muốn đặt hàng?')) {
+    } else if (confirm('Bạn có muốn đặt hàng?')) {
       this.orderService.createOrder(this.cart, +this.deliveryPrice, this.discountedPrice);
       this.cartService.removeAllProductFromCart();
       // Reset prices 
