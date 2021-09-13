@@ -1,21 +1,17 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Cart, Order, ProductInOrder } from '../app.interfaces';
-import { CartService } from './cart.service';
 import { ProductService } from './product.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  private orders: Order[];
-  private orderCurrent: Order[] = [];
-  private orderCurrent$:BehaviorSubject<Order[]> =  new BehaviorSubject<Order[]>([]);
- 
+  private orders: Order[] = [];
+  private currentOrders: Order[] = [];
+  public currentOrders$: BehaviorSubject<Order[]> = new BehaviorSubject<Order[]>([]);
 
   constructor(
-    private cartService: CartService,
     private productService: ProductService
   ) {
     this.orders = JSON.parse(localStorage.getItem('orders') || '[]');
@@ -37,13 +33,12 @@ export class OrderService {
     // Tạo ra 1 order truyền các thông tin của cart hiện tại vào
     let order: Order = {
       id: Math.random().toString().slice(2, 12),
-    // buyDate: new Date().toLocaleDateString(), //dd/mm/yyyy
-      buyDate: new Date().toISOString().slice(0,10),  // yyyy-mm-dd
+      buyDate: new Date().toISOString(),
       userId: cart.userId,
       deliveryMethod: (deliveryPrice == 10000) ? 'Giao tiêu chuẩn' : 'Giao nhanh',
       deliveryPrice: deliveryPrice,
       discountedPrice: discountedPrice,
-      status: "true",
+      status: 'active',
       productList: productList
     }
 
@@ -54,24 +49,27 @@ export class OrderService {
     localStorage.setItem('orders', JSON.stringify(this.orders));
   }
 
-    public getCurrentOrderByUserId(userId: Number): Observable<Order[]> {
-      this.orders.forEach(order =>{
-        if(order.userId == userId && order.status == "true"){
-          this.orderCurrent.push(order);
-        }
-      })
-     this.orderCurrent$.next(this.orderCurrent);
-     return  this.orderCurrent$;
-   }
+  public sortByBuyDate(orders: Order[]) {
+    orders.sort((a, b) => Date.parse(b.buyDate) - Date.parse(a.buyDate));
+  }
 
-   public cancelAnOrderByOrderId(id: string){
-    this.orderCurrent.forEach((item,index) =>{
-      if(item.id == id){
-        item.status = "cancelled";
-        localStorage.setItem('orders', JSON.stringify(this.orderCurrent));
-        this.orderCurrent.splice(index, 1);
-      } 
-    })
-    this.orderCurrent$.next(this.orderCurrent);
+  public getCurrentOrdersByUserId(userId: number): void {
+    this.currentOrders = [];
+    this.orders.forEach(order => {
+      if (order.userId === userId) {
+        this.currentOrders.push(order);
+      }
+    });
+    this.currentOrders$.next(this.currentOrders);
+  }
+
+  public cancelAnOrderByOrderId(id: string) {
+    this.currentOrders.forEach(order => {
+      if (order.id === id) {
+        order.status = 'cancelled';
+      }
+    });
+    localStorage.setItem('orders', JSON.stringify(this.currentOrders));
+    this.currentOrders$.next(this.currentOrders);
   }
 }

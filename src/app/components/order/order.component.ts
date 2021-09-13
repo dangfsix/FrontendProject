@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import vi from '@angular/common/locales/vi';
-import { Order, Product, ProductInOrder, User } from 'src/app/app.interfaces';
+import { Order, Product, User } from 'src/app/app.interfaces';
 import { OrderService } from 'src/app/services/order.service';
 import { UserService } from 'src/app/services/user.service';
 import { registerLocaleData } from '@angular/common';
 import { ProductService } from 'src/app/services/product.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-order',
@@ -13,20 +12,21 @@ import { Observable } from 'rxjs';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-  private userId: number = 1; // Default user
-  public orders: Order[] | undefined;
-  public userInfor?: User;
-  public  pageOfItems: any[] = [];
-  public items: ProductInOrder[] | any = [];
-  public productList: ProductInOrder[] = [];
+  public user!: User;
+  public orders: Order[] = [];
+  public pageOfItems: any[] = [];
 
-
-  constructor(private orderService: OrderService, private userService: UserService, private productService: ProductService) {
-   }
+  constructor(
+    private userService: UserService,
+    private orderService: OrderService,
+    private productService: ProductService
+  ) { }
 
   ngOnInit(): void {
-    this.orderService.getCurrentOrderByUserId(1).subscribe((orders: Order[]) => {this.orders = orders; this.items = orders});
-    this.userInfor = this.userService.getItemById(this.userId);
+    this.user = this.userService.getCurrentUser();
+    this.orderService.currentOrders$.subscribe(currentOrders => this.orders = currentOrders);
+    this.orderService.getCurrentOrdersByUserId(this.user.id);
+    this.orderService.sortByBuyDate(this.orders);
     registerLocaleData(vi);
   }
 
@@ -38,17 +38,16 @@ export class OrderComponent implements OnInit {
     return this.productService.getItemById(productId);
   }
 
-  public cancelAnOrder(id: string): void{
-    if(!confirm('Bạn có muốn hủy đơn hàng')){
+  public cancelAnOrder(id: string): void {
+    if (!confirm('Bạn có muốn hủy đơn hàng?')) {
       return;
     }
     this.orderService.cancelAnOrderByOrderId(id);
   }
 
-  public getTempPrice(order: Order): number | undefined{
+  public getTempPrice(order: Order): number {
     let tempPrice: number = 0;
-    order.productList.forEach(item => tempPrice += item.historicalPrice * item.wantedQuantity)
-      return tempPrice;
-   }
- 
+    order.productList.forEach(productInOrder => tempPrice += productInOrder.historicalPrice * productInOrder.wantedQuantity);
+    return tempPrice;
+  }
 }
