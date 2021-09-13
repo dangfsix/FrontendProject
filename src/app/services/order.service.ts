@@ -11,7 +11,7 @@ import { ProductService } from './product.service';
 export class OrderService {
   private orders: Order[];
   private orderCurrent: Order[] = [];
-  private orderCurrent$:BehaviorSubject<Order[]> =  new BehaviorSubject<Order[]>([]);
+  public  orderCurrent$:BehaviorSubject<Order[]> =  new BehaviorSubject<Order[]>([]);
  
 
   constructor(
@@ -19,6 +19,9 @@ export class OrderService {
     private productService: ProductService
   ) {
     this.orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    // khởi tạo lấy order theo user truyền vô orderCurrent để làm order trung gian 
+    //cho orderCurrent$ mỗi khi có thay đổi thì next(orderCurrent)
+    this.getCurrentOrderByUserId(this.cartService.getUserId())
   }
 
   public createOrder(cart: Cart, deliveryPrice: number, discountedPrice: number): void {
@@ -49,21 +52,21 @@ export class OrderService {
 
     // Thêm order mới vào orders
     this.orders.push(order);
-
+    // cập nhật orderCurrent để orderCurrent$ bắn sự thay đổi cho những nơi đăng kí
+    this.orderCurrent.push(order);
+    this.orderCurrent$.next(this.orderCurrent);
     // Lưu vào localStorage
     localStorage.setItem('orders', JSON.stringify(this.orders));
   }
-
-    public getCurrentOrderByUserId(userId: Number): Observable<Order[]> {
+    // lấy order hiện tại của user id
+    public getCurrentOrderByUserId(userId: number){
       this.orders.forEach(order =>{
         if(order.userId == userId && order.status == "true"){
           this.orderCurrent.push(order);
         }
       })
-     this.orderCurrent$.next(this.orderCurrent);
-     return  this.orderCurrent$;
    }
-
+   // hủy đơn hàng
    public cancelAnOrderByOrderId(id: string){
     this.orderCurrent.forEach((item,index) =>{
       if(item.id == id){
@@ -72,6 +75,7 @@ export class OrderService {
         this.orderCurrent.splice(index, 1);
       } 
     })
+    // cập nhật 
     this.orderCurrent$.next(this.orderCurrent);
   }
 }

@@ -25,7 +25,7 @@ export class OrderComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.orderService.getCurrentOrderByUserId(1).subscribe((orders: Order[]) => {this.orders = orders; this.items = orders});
+    this.orderService.orderCurrent$.subscribe((orders: Order[]) => {this.orders = orders; this.items = orders});
     this.userInfor = this.userService.getItemById(this.userId);
     registerLocaleData(vi);
   }
@@ -43,7 +43,6 @@ export class OrderComponent implements OnInit {
       return;
     }
     this.orderService.cancelAnOrderByOrderId(id);
-    this.onChangePage(this.items);
   }
 
   public getTempPrice(order: Order): number | undefined{
