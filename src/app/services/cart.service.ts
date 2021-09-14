@@ -23,11 +23,6 @@ export class CartService {
   ) {
     this.userId = this.userService.getCurrentUser().id;
     this.carts = JSON.parse(localStorage.getItem('carts') || '[]');
-
-  }
-
-  public getUserId(): number {
-    return this.userId;
   }
 
   public getCurrentCart(): Observable<Cart> {
@@ -54,6 +49,7 @@ export class CartService {
     // Nếu carts trong localStorage chưa có -> Tạo key carts
     if (this.carts.length === 0) {
       this.carts = [cart];
+      this.getCurrentCart();
     } else {
       this.getCurrentCart();
       // Nếu tồn tại cart của userId hiện tại
@@ -72,9 +68,9 @@ export class CartService {
         this.carts.push(cart);
       }
     }
-    // cập nhật lại currentCart của cho những nói nó đăng kí
+    // Cập nhật lại currentCart cho những nơi nó đăng kí
     this.currentCart$.next(this.currentCart);
-    //cập nhật lại số lượng
+    // Cập nhật lại số lượng
     this.getTotalProduct();
     // Lưu dữ liệu cartsTemp vào key carts
     localStorage.setItem('carts', JSON.stringify(this.carts));
@@ -87,7 +83,7 @@ export class CartService {
     if (currentProductInCart) {
       currentProductInCart.wantedQuantity = wantedQuantity
     }
-    // cập nhật lại số lượng
+    // Cập nhật lại số lượng
     this.getTotalProduct();
     localStorage.setItem('carts', JSON.stringify(this.carts))
   }
@@ -98,7 +94,7 @@ export class CartService {
     });
     localStorage.setItem('carts', JSON.stringify(this.carts));
     this.currentCart$.next(this.currentCart);
-    // cập nhật lại số lượng
+    // Cập nhật lại số lượng
     this.getTotalProduct();
   }
 
@@ -107,7 +103,7 @@ export class CartService {
     this.currentCart!.productList = [];
     this.currentCart$.next(this.currentCart);
     localStorage.setItem('carts', JSON.stringify(this.carts));
-    // cập nhật lại số lượng
+    // Cập nhật lại số lượng
     this.getTotalProduct();
   }
 
@@ -133,7 +129,7 @@ export class CartService {
     this.currentCart?.productList.forEach(item => {
       count += item.wantedQuantity;
     })
-    // cập nhật số lượng
+    // Cập nhật số lượng
     this.totalProduct$.next(count);
   }
 }
