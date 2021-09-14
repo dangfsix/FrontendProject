@@ -26,9 +26,9 @@ export class CartService {
   
   }
 
-  public getUserId(): number {
-    return this.userId;
-  }
+  // public getUserId(): number {
+  //   return this.userId;
+  // }
 
   public getCurrentCart(): Observable<Cart> {
     this.currentCart = this.carts.find(cart => cart.userId === this.userId);
@@ -54,6 +54,8 @@ export class CartService {
     // Nếu carts trong localStorage chưa có -> Tạo key carts
     if (this.carts.length === 0) {
       this.carts = [cart];
+      this.getCurrentCart();
+      this.currentCart$.next(this.currentCart);
     } else {
       this.getCurrentCart();
       // Nếu tồn tại cart của userId hiện tại

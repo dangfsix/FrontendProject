@@ -68,13 +68,15 @@ export class OrderService {
    }
 
    // hủy đơn hàng
-   public cancelAnOrderByOrderId(id: string){
+   public cancelAnOrderByOrderId(idProduct: string, idUser: number){
     this.orders.forEach((item,index) =>{
-      if(item.id == id){
+      if(item.id == idProduct){
         item.status = "cancelled";
         localStorage.setItem('orders', JSON.stringify(this.orders));
      } 
     })
-    this.getCurrentOrderByUserId(this.cartService.getUserId())
+    this.getCurrentOrderByUserId(idUser)
   }
+
+  
 }

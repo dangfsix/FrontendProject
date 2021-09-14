@@ -43,7 +43,7 @@ export class OrderComponent implements OnInit {
     if(!confirm('Bạn có muốn hủy đơn hàng')){
       return;
     }
-    this.orderService.cancelAnOrderByOrderId(id);
+    this.orderService.cancelAnOrderByOrderId(id,this.userId);
   }
 
   public getTempPrice(order: Order): number | undefined{
