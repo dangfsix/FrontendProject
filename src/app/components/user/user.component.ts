@@ -23,8 +23,8 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.userService.getCurrentUser();
     this.cartService.totalProduct$.subscribe(totalProductInCart => this.totalProductInCart = totalProductInCart)
-    this.orderService.orderCurrent$.subscribe((orders: Order[]) => this.totalOrder = orders.length);
-    this.orderService.getCurrentOrderByUserId(this.user.id);
+    this.orderService.currentOrders$.subscribe((orders: Order[]) => this.totalOrder = orders.length);
+    this.orderService.getCurrentOrdersByUserId(this.user.id);
     this.cartService.getCurrentCart();
   }
 }

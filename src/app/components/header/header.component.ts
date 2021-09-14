@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   public searchText: string = '';
   public showResult: boolean = false;
   public searchResults: Product[] = [];
-  public totalProduct:number = 0
+  public totalProduct: number = 0
 
   constructor(
     private router: Router,

@@ -18,28 +18,38 @@
 
             <main class="col-md-9">
 
-                <article class="card mb-4" *ngFor="let order of pageOfItems">
+                <article class="card mb-4 border-{{order.status === 'cancelled' ? 'secondary' : 'primary'}}"
+                    *ngFor="let order of pageOfItems">
 
-                    <header class="card-header">
-                        <strong class="d-inline-block me-4">Mã đơn hàng: {{order?.id}}</strong>
-                        <span>Ngày mua: {{order?.buyDate}}</span>
+                    <header
+                        class="card-header text-white bg-{{order.status === 'cancelled' ? 'secondary' : 'primary'}}">
+                        <strong class="d-inline-block me-4">Mã đơn hàng: {{order.id}}</strong>
+                        <span class="me-4">Ngày mua: {{order.buyDate}}</span>
+                        <span class="float-end">{{order.status === 'cancelled' ? 'Đã hủy' : 'Đang chờ'}}</span>
                     </header> <!-- card-header.// -->
 
                     <div class="card-body pb-0">
                         <div class="row">
                             <div class="col-md-8">
                                 <h6 class="text-muted">Địa chỉ người nhận</h6>
-                                <p class="lh-lg">{{userInfor?.fullname}}<br> Số điện thoại: {{userInfor?.phone}}<br> Địa chỉ: {{userInfor?.address}}
+                                <p class="lh-lg">
+                                    {{user.fullname}}<br>
+                                    Số điện thoại: {{user.phone}}<br>
+                                    Địa chỉ: {{user.address}}
                                 </p>
                             </div>
                             <div class="col-md-4">
-                                <h6 class="text-muted">Hình thức thanh toán</h6>
-                                <span class="text-success">
-                                    <i class="fab fa-lg fa-cc-visa"></i>
-                                    {{order?.deliveryMethod}}
-                                </span>
-                                <p class="lh-lg">{{getTempPrice(order) | number:'':'vi'}}₫ <br> Phí vận chuyển: {{order?.deliveryPrice | number:'':'vi'}}₫ <br>
-                                    <strong>Tổng cộng: {{ getTempPrice(order) + order?.deliveryPrice | number:'':'vi'}}₫  </strong>
+                                <h6 class="text-muted">{{order.deliveryMethod}}</h6>
+                                <p class="lh-lg">
+                                    Tạm tính: {{getTempPrice(order) | number:'':'vi'}}₫<br>
+                                    Phí vận chuyển: {{order.deliveryPrice | number:'':'vi'}}₫<br>
+                                    <span *ngIf="order.discountedPrice !== 0">
+                                        Giảm giá: -{{order.discountedPrice | number:'':'vi'}}₫<br>
+                                    </span>
+                                    <strong>
+                                        Tổng cộng: {{getTempPrice(order) + order.deliveryPrice - order.discountedPrice |
+                                        number:'':'vi'}}₫
+                                    </strong>
                                 </p>
                             </div>
                         </div> <!-- row.// -->
@@ -56,38 +66,46 @@
                                     <th scope="col" width="150" style="min-width: 150px;">Số lượng</th>
                                 </tr>
                             </thead>
-                            <tbody *ngFor="let product of order.productList">
+                            <tbody *ngFor="let productInOrder of order.productList">
                                 <tr>
                                     <td>
                                         <figure class="itemside">
-                                            <div class="float-start me-3"><img [src]="getProductById(product.productId).img"></div>
+                                            <div class="float-start me-3"><img
+                                                    [src]="getProductById(productInOrder.productId).img"></div>
                                             <figcaption class="info">
-                                                <a href="#" class="title">{{getProductById(product.productId).name}}</a>
+                                                <a [routerLink]="['/product', productInOrder.productId]"
+                                                    class="title">{{getProductById(productInOrder.productId).name}}</a>
                                             </figcaption>
                                         </figure>
                                     </td>
                                     <td>
                                         <div class="price-wrap">
-                                            <span class="price">{{product.historicalPrice | number:'':'vi'}}₫ </span>
+                                            <span class="price">
+                                                {{productInOrder.historicalPrice | number:'':'vi'}}₫
+                                            </span>
                                         </div>
                                     </td>
                                     <td>
-                                        {{product.wantedQuantity}}
+                                        {{productInOrder.wantedQuantity}}
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>  <!-- table.responsive-md.// -->
+                    </div> <!-- table.responsive-md.// -->
 
                     <div class="card-footer py-3">
-                        <a href="#" class="btn btn-primary me-2">Theo dõi đơn hàng</a>
-                        <a routerLink="/order" class="btn btn-danger" (click)="cancelAnOrder(order?.id!)">Hủy đơn hàng</a>
+                        <a href="#" class="btn btn-primary me-2 {{order.status === 'cancelled' ? 'disabled' : ''}}">Theo
+                            dõi đơn hàng</a>
+                        <a routerLink="/order" class="btn btn-danger {{order.status === 'cancelled' ? 'disabled' : ''}}"
+                            (click)="cancelAnOrder(order.id)">
+                            Hủy đơn hàng
+                        </a>
                     </div> <!-- card-footer.// -->
 
                 </article>
 
                 <nav class="mt-4">
-                    <jw-pagination [items]="items" (changePage)="onChangePage($event)" [pageSize]="1">
+                    <jw-pagination [items]="orders" (changePage)="onChangePage($event)" [pageSize]="5">
                     </jw-pagination>
                 </nav>
 
