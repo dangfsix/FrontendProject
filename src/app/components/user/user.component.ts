@@ -23,7 +23,13 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.userService.getCurrentUser();
     this.cartService.totalProduct$.subscribe(totalProductInCart => this.totalProductInCart = totalProductInCart)
-    this.orderService.currentOrders$.subscribe((orders: Order[]) => this.totalOrder = orders.length);
+    this.orderService.currentOrders$.subscribe((orders: Order[]) => {
+      let totalOrder = 0; 
+      orders.forEach(element => {
+      if(element.status == "active") totalOrder++;
+       });
+      this.totalOrder = totalOrder
+    });
     this.orderService.getCurrentOrdersByUserId(this.user.id);
     this.cartService.getCurrentCart();
   }
