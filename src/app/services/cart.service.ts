@@ -23,7 +23,6 @@ export class CartService {
   ) {
     this.userId = this.userService.getCurrentUser().id;
     this.carts = JSON.parse(localStorage.getItem('carts') || '[]');
-
   }
 
   // public getUserId(): number {
@@ -73,9 +72,9 @@ export class CartService {
         this.carts.push(cart);
       }
     }
-    // cập nhật lại currentCart của cho những nói nó đăng kí
+    // Cập nhật lại currentCart cho những nơi nó đăng kí
     this.currentCart$.next(this.currentCart);
-    //cập nhật lại số lượng
+    // Cập nhật lại số lượng
     this.getTotalProduct();
     // Lưu dữ liệu cartsTemp vào key carts
     localStorage.setItem('carts', JSON.stringify(this.carts));
@@ -88,7 +87,7 @@ export class CartService {
     if (currentProductInCart) {
       currentProductInCart.wantedQuantity = wantedQuantity
     }
-    // cập nhật lại số lượng
+    // Cập nhật lại số lượng
     this.getTotalProduct();
     localStorage.setItem('carts', JSON.stringify(this.carts))
   }
