@@ -8,7 +8,7 @@ import { ProductService } from "./product.service";
   providedIn: 'root'
 })
 export class CategoryService {
-  public categories: Category[] = (data as any).default;
+  private categories: Category[] = (data as any).default;
 
   constructor(private productService: ProductService) {
   }

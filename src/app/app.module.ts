@@ -26,6 +26,8 @@ import { DiscountService } from './services/discount.service';
 import { ScriptService } from './services/script.service';
 import { ToastComponent } from './components/toast/toast.component';
 import { ToastService } from './services/toast.service';
+import { CommentComponent } from './components/comment/comment.component';
+import { CommentService } from './services/comment.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { ToastService } from './services/toast.service';
     FilterPipe,
     HighlightDirective,
     SearchComponent,
-    ToastComponent
+    ToastComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import { ToastService } from './services/toast.service';
     FilterPipe,
     DiscountService,
     ScriptService,
-    ToastService
+    ToastService,
+    CommentService
   ],
   bootstrap: [AppComponent]
 })

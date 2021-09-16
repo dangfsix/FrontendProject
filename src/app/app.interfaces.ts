@@ -66,3 +66,12 @@ export interface Discount {
     percent: number;
     description: string;
 }
+
+export interface Comment {
+    commentId: number;
+    productId: number;
+    userId: number;
+    date: string;
+    ratingScore: number;
+    commentText: string;
+}
