@@ -7,97 +7,16 @@
 <section class="section-content padding-y">
     <div class="container">
         <div class="row">
-            <aside class="col-md-4 col-lg-3 mb-md-0 mb-3">
-                <div class="card">
-                    <article class="filter-group">
-                        <header class="card-header my-1">
-                            <a data-bs-toggle="collapse" href="#collapse_1" aria-expanded="true"
-                                aria-controls="collapse_1">
-                                <i class="float-end bi bi-chevron-down"></i>
-                                <h6 class="title fw-bold">Thương hiệu</h6>
-                            </a>
-                        </header>
-                        <div class="filter-content collapse show" id="collapse_1">
-                            <div class="card-body pt-0">
-                                <div class="form-check" (click)="filterSidebar($event)">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_brand_1">
-                                    <label class="form-check-label" for="checkbox_brand_1">
-                                        Sharp
-                                    </label>
-                                </div>
-                                <div class="form-check" (click)="filterSidebar($event)">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_brand_2">
-                                    <label class="form-check-label" for="checkbox_brand_2">
-                                        Toshiba
-                                    </label>
-                                </div>
-                                <div class="form-check" (click)="filterSidebar($event)">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_brand_3">
-                                    <label class="form-check-label" for="checkbox_brand_3">
-                                        Panasonic
-                                    </label>
-                                </div>
-                                <div class="form-check" (click)="filterSidebar($event)">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_brand_4">
-                                    <label class="form-check-label" for="checkbox_brand_4">
-                                        Midea
-                                    </label>
-                                </div>
-                            </div> <!-- card-body.// -->
-                        </div>
-                    </article>
-                    <article class="filter-group">
-                        <header class="card-header my-1">
-                            <a data-bs-toggle="collapse" href="#collapse_2" aria-expanded="true"
-                                aria-controls="collapse_2">
-                                <i class="float-end bi bi-chevron-down"></i>
-                                <h6 class="title fw-bold">Giá bán</h6>
-                            </a>
-                        </header>
-                        <div class="filter-content collapse show" id="collapse_2">
-                            <div class="card-body pt-0">
-                                <div class="form-check" (click)="filterSidebar($event)">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_price_1">
-                                    <label class="form-check-label" for="checkbox_price_1">
-                                        Dưới 1 triệu
-                                    </label>
-                                </div>
-                                <div class="form-check" (click)="filterSidebar($event)">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_price_2">
-                                    <label class="form-check-label" for="checkbox_price_2">
-                                        Từ 1 - 2 triệu
-                                    </label>
-                                </div>
-                                <div class="form-check" (click)="filterSidebar($event)">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkbox_price_3">
-                                    <label class="form-check-label" for="checkbox_price_3">
-                                        Trên 2 triệu
-                                    </label>
-                                </div>
-                            </div> <!-- card-body.// -->
-                        </div>
-                    </article>
-                </div> <!-- card.// -->
-            </aside> <!-- col.// -->
-
-            <main class="col-md-8 col-lg-9">
+            <main class="col">
 
                 <header class="border-bottom mb-4 pb-3">
                     <div class="form-inline d-flex justify-content-between align-items-center">
                         <span>{{products.length}} sản phẩm</span>
-                        <div>
-                            <select class="form-select" (change)="filterSelect($event)">
-                                <option>Bán chạy nhất</option>
-                                <option>Mới nhất</option>
-                                <option>Đánh giá cao nhất</option>
-                                <option>Giá thấp nhất</option>
-                            </select>
-                        </div>
                     </div>
                 </header> <!-- sect-heading -->
 
                 <div class="row item-grid">
-                    <div class="col-lg-4 col-md-6" *ngFor="let product of pageOfItems">
+                    <div class="col-lg-3 col-md-6" *ngFor="let product of pageOfItems">
                         <div class="card p-3 mb-4">
                             <a [routerLink]="['/product', product.id]" class="img-wrap text-center">
                                 <img class="img-fluid" [src]="product.img">
@@ -113,7 +32,7 @@
                 </div> <!-- row end.// -->
 
                 <nav class="mt-4">
-                    <jw-pagination [items]="products" (changePage)="onChangePage($event)" [pageSize]="6">
+                    <jw-pagination [items]="products" (changePage)="onChangePage($event)" [pageSize]="12">
                     </jw-pagination>
                 </nav>
 
