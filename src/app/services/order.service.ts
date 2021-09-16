@@ -69,7 +69,12 @@ export class OrderService {
         order.status = 'cancelled';
       }
     });
-    localStorage.setItem('orders', JSON.stringify(this.currentOrders));
+    this.orders.forEach(order => {
+      if (order.id === id) {
+        order.status = 'cancelled';
+      }
+    });
+    localStorage.setItem('orders', JSON.stringify(this.orders));
     this.currentOrders$.next(this.currentOrders);
   }
 }

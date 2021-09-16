@@ -45,8 +45,12 @@
                             </a>
                         </li>
                         <li>
-                            <a routerLink="/cart" class="nav-link text-body">
-                                <i class="bi bi-cart d-block text-center fs-3"></i>
+                            <a routerLink="/cart" class="nav-link text-body position-relative">
+                                <span class="position-absolute top-0 end-0 mt-2 badge rounded-pill bg-primary">
+                                    {{totalProduct}}
+                                </span>
+                                <i class="bi bi-cart d-block text-center fs-3 position-relative">
+                                </i>
                                 Giỏ hàng
                             </a>
                         </li>

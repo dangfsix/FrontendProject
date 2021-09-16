@@ -118,3 +118,9 @@ a {
 .toast-container {
     z-index: 1;
 }
+
+/* carousel */
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    filter: contrast(0.5);
+}
