@@ -25,10 +25,6 @@ export class CartService {
     this.carts = JSON.parse(localStorage.getItem('carts') || '[]');
   }
 
-  // public getUserId(): number {
-  //   return this.userId;
-  // }
-
   public getCurrentCart(): Observable<Cart> {
     this.currentCart = this.carts.find(cart => cart.userId === this.userId);
     this.currentCart$.next(this.currentCart);
@@ -98,7 +94,7 @@ export class CartService {
     });
     localStorage.setItem('carts', JSON.stringify(this.carts));
     this.currentCart$.next(this.currentCart);
-    // cập nhật lại số lượng
+    // Cập nhật lại số lượng
     this.getTotalProduct();
   }
 
@@ -107,7 +103,7 @@ export class CartService {
     this.currentCart!.productList = [];
     this.currentCart$.next(this.currentCart);
     localStorage.setItem('carts', JSON.stringify(this.carts));
-    // cập nhật lại số lượng
+    // Cập nhật lại số lượng
     this.getTotalProduct();
   }
 
@@ -133,7 +129,7 @@ export class CartService {
     this.currentCart?.productList.forEach(item => {
       count += item.wantedQuantity;
     })
-    // cập nhật số lượng
+    // Cập nhật số lượng
     this.totalProduct$.next(count);
   }
 }
