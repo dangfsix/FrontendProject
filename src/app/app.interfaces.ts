@@ -57,7 +57,14 @@ export interface Order {
     deliveryMethod: string;
     deliveryPrice: number;
     discountedPrice: number;
+    status: string;
     productList: ProductInOrder[];
+}
+
+export interface Discount {
+    code: string;
+    percent: number;
+    description: string;
 }
 
 export interface Comment {

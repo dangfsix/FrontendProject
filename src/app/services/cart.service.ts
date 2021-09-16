@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Cart, ProductInCart } from '../app.interfaces';
 import { ProductService } from './product.service';
 import { UserService } from './user.service';
@@ -11,6 +12,11 @@ export class CartService {
   private carts: Cart[] = [];
   private currentCart?: Cart;
 
+  public currentCart$: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  public tempPrice$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  public totalPrice$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  public totalProduct$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
   constructor(
     private userService: UserService,
     private productService: ProductService
@@ -19,13 +25,11 @@ export class CartService {
     this.carts = JSON.parse(localStorage.getItem('carts') || '[]');
   }
 
-  public getUserId(): number {
-    return this.userId;
-  }
-
-  public getCurrentCart(): Cart | undefined {
+  public getCurrentCart(): Observable<Cart> {
     this.currentCart = this.carts.find(cart => cart.userId === this.userId);
-    return this.currentCart;
+    this.currentCart$.next(this.currentCart);
+    this.getTotalProduct();
+    return this.currentCart$;
   }
 
   public addProduct(productId: number, wantedQuantity: number): void {
@@ -45,70 +49,87 @@ export class CartService {
     // Nếu carts trong localStorage chưa có -> Tạo key carts
     if (this.carts.length === 0) {
       this.carts = [cart];
+      this.getCurrentCart();
     } else {
-      // Lấy ra cart của userId hiện tại
-      let currentCart: Cart | undefined = this.getCurrentCart();
-
+      this.getCurrentCart();
       // Nếu tồn tại cart của userId hiện tại
-      if (currentCart) {
+      if (this.currentCart) {
         // Lấy ra productInCart của productId hiện tại
         let currentProductInCart: ProductInCart | undefined =
-          currentCart?.productList.find(productInCart => productInCart.productId === productId);
+          this.currentCart?.productList.find(productInCart => productInCart.productId === productId);
 
         // Nếu tồn tại productInCart của productId hiện tại
         if (currentProductInCart) {
           currentProductInCart.wantedQuantity += wantedQuantity;
         } else {
-          currentCart?.productList.push(productInCart);
+          this.currentCart?.productList.push(productInCart);
         }
       } else {
         this.carts.push(cart);
       }
     }
-
+    // Cập nhật lại currentCart cho những nơi nó đăng kí
+    this.currentCart$.next(this.currentCart);
+    // Cập nhật lại số lượng
+    this.getTotalProduct();
     // Lưu dữ liệu cartsTemp vào key carts
     localStorage.setItem('carts', JSON.stringify(this.carts));
   }
 
   public changeWantedQuantity(productId: number, wantedQuantity: number): void {
-    let currentCart = this.getCurrentCart();
+    let currentCart = this.currentCart;
     let currentProductInCart: ProductInCart | undefined =
       currentCart?.productList.find(productInCart => productInCart.productId === productId);
     if (currentProductInCart) {
       currentProductInCart.wantedQuantity = wantedQuantity
     }
+    // Cập nhật lại số lượng
+    this.getTotalProduct();
     localStorage.setItem('carts', JSON.stringify(this.carts))
   }
 
   public removeProductFromCart(productId: number): void {
-    if (!confirm('Bạn có muốn xóa?')) {
-      return;
-    }
     this.currentCart?.productList.forEach((productInCart, index) => {
       if (productInCart.productId === productId) this.currentCart?.productList.splice(index, 1);
     });
     localStorage.setItem('carts', JSON.stringify(this.carts));
+    this.currentCart$.next(this.currentCart);
+    // Cập nhật lại số lượng
+    this.getTotalProduct();
   }
 
   // Xóa tất cả sản phẩm của user hiện tại đang đăng nhập
   public removeAllProductFromCart() {
     this.currentCart!.productList = [];
+    this.currentCart$.next(this.currentCart);
     localStorage.setItem('carts', JSON.stringify(this.carts));
+    // Cập nhật lại số lượng
+    this.getTotalProduct();
   }
 
   public getTempPrice(): number {
-    let tempPrice: number = 0;
-    let currentCart = this.getCurrentCart();
-    if (currentCart) {
-      currentCart?.productList.forEach(productInCart => {
+    let tempPrice = 0;
+    if (this.currentCart) {
+      this.currentCart?.productList.forEach(productInCart => {
         let product = this.productService.getItemById(productInCart.productId);
         tempPrice += product.price * productInCart.wantedQuantity;
       });
     }
+    this.tempPrice$.next(tempPrice)
     return tempPrice;
   }
 
-  public getTotalPrice(deliveryPrice: number): number {
-    return this.getTempPrice() + deliveryPrice;
+  public getTotalPrice(deliveryPrice: number, discountedPrice: number) {
+    let totalPrice = this.getTempPrice() + deliveryPrice - discountedPrice;
+    this.totalPrice$.next(totalPrice)
+  }
+
+  public getTotalProduct() {
+    let count: number = 0;
+    this.currentCart?.productList.forEach(item => {
+      count += item.wantedQuantity;
+    })
+    // Cập nhật số lượng
+    this.totalProduct$.next(count);
   }
 }

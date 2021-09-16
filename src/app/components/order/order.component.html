@@ -18,31 +18,38 @@
 
             <main class="col-md-9">
 
-                <article class="card mb-4">
+                <article class="card mb-4 border-{{order.status === 'cancelled' ? 'secondary' : 'primary'}}"
+                    *ngFor="let order of pageOfItems">
 
-                    <header class="card-header">
-                        <strong class="d-inline-block me-4">Mã đơn hàng: 3748764938</strong>
-                        <span>Ngày mua: 20/08/2020</span>
+                    <header
+                        class="card-header text-white bg-{{order.status === 'cancelled' ? 'secondary' : 'primary'}}">
+                        <strong class="d-inline-block me-4">Mã đơn hàng: {{order.id}}</strong>
+                        <span class="me-4">Ngày mua: {{order.buyDate}}</span>
+                        <span class="float-end">{{order.status === 'cancelled' ? 'Đã hủy' : 'Đang chờ'}}</span>
                     </header> <!-- card-header.// -->
 
                     <div class="card-body pb-0">
                         <div class="row">
                             <div class="col-md-8">
                                 <h6 class="text-muted">Địa chỉ người nhận</h6>
-                                <p class="lh-lg">Nguyễn Thị A <br> Số điện thoại: 0919944382<br> Địa chỉ: 120 Đường
-                                    Nguyễn Duy
-                                    Trinh, Phường Bình
-                                    Trưng Đông, Quận 2, TP.HCM
+                                <p class="lh-lg">
+                                    {{user.fullname}}<br>
+                                    Số điện thoại: {{user.phone}}<br>
+                                    Địa chỉ: {{user.address}}
                                 </p>
                             </div>
                             <div class="col-md-4">
-                                <h6 class="text-muted">Hình thức thanh toán</h6>
-                                <span class="text-success">
-                                    <i class="fab fa-lg fa-cc-visa"></i>
-                                    Giao tiêu chuẩn
-                                </span>
-                                <p class="lh-lg">Tạm tính: 3.530.000₫ <br> Phí vận chuyển: 50.000₫ <br>
-                                    <strong>Tổng cộng: 3.580.000₫ </strong>
+                                <h6 class="text-muted">{{order.deliveryMethod}}</h6>
+                                <p class="lh-lg">
+                                    Tạm tính: {{getTempPrice(order) | number:'':'vi'}}₫<br>
+                                    Phí vận chuyển: {{order.deliveryPrice | number:'':'vi'}}₫<br>
+                                    <span *ngIf="order.discountedPrice !== 0">
+                                        Giảm giá: -{{order.discountedPrice | number:'':'vi'}}₫<br>
+                                    </span>
+                                    <strong>
+                                        Tổng cộng: {{getTempPrice(order) + order.deliveryPrice - order.discountedPrice |
+                                        number:'':'vi'}}₫
+                                    </strong>
                                 </p>
                             </div>
                         </div> <!-- row.// -->
@@ -59,62 +66,47 @@
                                     <th scope="col" width="150" style="min-width: 150px;">Số lượng</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody *ngFor="let productInOrder of order.productList">
                                 <tr>
                                     <td>
                                         <figure class="itemside">
-                                            <div class="float-start me-3"><img src="assets/img/80px.png"></div>
+                                            <div class="float-start me-3"><img
+                                                    [src]="getProductById(productInOrder.productId).img"></div>
                                             <figcaption class="info">
-                                                <a href="#" class="title">Nồi cơm điện Sharp 1.8 lít KS-TH18</a>
+                                                <a [routerLink]="['/product', productInOrder.productId]"
+                                                    class="title">{{getProductById(productInOrder.productId).name}}</a>
                                             </figcaption>
                                         </figure>
                                     </td>
                                     <td>
                                         <div class="price-wrap">
-                                            <span class="price">2.540.000₫</span>
+                                            <span class="price">
+                                                {{productInOrder.historicalPrice | number:'':'vi'}}₫
+                                            </span>
                                         </div>
                                     </td>
                                     <td>
-                                        1
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <figure class="itemside">
-                                            <div class="float-start me-3"><img src="assets/img/80px.png"></div>
-                                            <figcaption class="info">
-                                                <a href="#" class="title">Nồi cơm điện Sharp 1.8 lít KS-NR181STV</a>
-                                            </figcaption>
-                                        </figure>
-                                    </td>
-                                    <td>
-                                        <div class="price-wrap">
-                                            <span class="price">990.000₫</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        1
+                                        {{productInOrder.wantedQuantity}}
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>  <!-- table.responsive-md.// -->
+                    </div> <!-- table.responsive-md.// -->
 
                     <div class="card-footer py-3">
-                        <a href="#" class="btn btn-primary me-2">Theo dõi đơn hàng</a>
-                        <a href="#" class="btn btn-danger">Hủy đơn hàng</a>
+                        <a href="#" class="btn btn-primary me-2 {{order.status === 'cancelled' ? 'disabled' : ''}}">Theo
+                            dõi đơn hàng</a>
+                        <a routerLink="/order" class="btn btn-danger {{order.status === 'cancelled' ? 'disabled' : ''}}"
+                            (click)="cancelAnOrder(order.id)">
+                            Hủy đơn hàng
+                        </a>
                     </div> <!-- card-footer.// -->
 
                 </article>
 
                 <nav class="mt-4">
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a class="page-link" href="#">Trang trước</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Trang sau</a></li>
-                    </ul>
+                    <jw-pagination [items]="orders" (changePage)="onChangePage($event)" [pageSize]="5">
+                    </jw-pagination>
                 </nav>
 
             </main> <!-- col.// -->

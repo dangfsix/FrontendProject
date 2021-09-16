@@ -19,6 +19,13 @@ import { OrderComponent } from './components/order/order.component';
 import { UserComponent } from './components/user/user.component';
 import { UserService } from './services/user.service';
 import { CartService } from './services/cart.service';
+import { FilterPipe } from './pipes/filter.pipe';
+import { HighlightDirective } from './directives/highlight.directive';
+import { SearchComponent } from './components/search/search.component';
+import { DiscountService } from './services/discount.service';
+import { ScriptService } from './services/script.service';
+import { ToastComponent } from './components/toast/toast.component';
+import { ToastService } from './services/toast.service';
 import { CommentComponent } from './components/comment/comment.component';
 import { CommentService } from './services/comment.service';
 
@@ -35,6 +42,10 @@ import { CommentService } from './services/comment.service';
     CartComponent,
     OrderComponent,
     UserComponent,
+    FilterPipe,
+    HighlightDirective,
+    SearchComponent,
+    ToastComponent,
     CommentComponent
   ],
   imports: [
@@ -48,6 +59,10 @@ import { CommentService } from './services/comment.service';
     ProductService,
     UserService,
     CartService,
+    FilterPipe,
+    DiscountService,
+    ScriptService,
+    ToastService,
     CommentService
   ],
   bootstrap: [AppComponent]

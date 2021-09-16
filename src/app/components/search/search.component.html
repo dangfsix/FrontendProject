@@ -1,0 +1,42 @@
+<section class="section-pagetop bg-light">
+    <div class="container">
+        <h2 class="title-page">Kết quả tìm kiếm của "{{keyword}}"</h2>
+    </div> <!-- container.// -->
+</section> <!-- section-pagetop.// -->
+
+<section class="section-content padding-y">
+    <div class="container">
+        <div class="row">
+            <main class="col">
+
+                <header class="border-bottom mb-4 pb-3">
+                    <div class="form-inline d-flex justify-content-between align-items-center">
+                        <span>{{products.length}} sản phẩm</span>
+                    </div>
+                </header> <!-- sect-heading -->
+
+                <div class="row item-grid">
+                    <div class="col-lg-3 col-md-6" *ngFor="let product of pageOfItems">
+                        <div class="card p-3 mb-4">
+                            <a [routerLink]="['/product', product.id]" class="img-wrap text-center">
+                                <img class="img-fluid" [src]="product.img">
+                            </a>
+                            <figcaption class="info-wrap mt-2">
+                                <a [routerLink]="['/product', product.id]" class="title" appHighlight
+                                    [searchedWord]="keyword" [content]="product.name"
+                                    [classToApply]="'fw-bold'">{{product.name}}</a>
+                                <div class="price mt-1 fw-bold">{{product.price | number:'':'vi'}}₫</div>
+                            </figcaption>
+                        </div>
+                    </div> <!-- col.// -->
+                </div> <!-- row end.// -->
+
+                <nav class="mt-4">
+                    <jw-pagination [items]="products" (changePage)="onChangePage($event)" [pageSize]="12">
+                    </jw-pagination>
+                </nav>
+
+            </main> <!-- col.// -->
+        </div> <!-- row.// -->
+    </div> <!-- container.//  -->
+</section> <!-- section-content.// -->
