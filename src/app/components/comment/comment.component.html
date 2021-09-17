@@ -1,60 +1,99 @@
 <section class="section-content mb-5">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <ng-template [ngIf]="comments.length !== 0">
-                    <h3 class="pb-2">Đánh giá sản phẩm ({{comments.length}})</h3>
-                    <div class="rattings-wrapper mb-5" *ngFor="let comment of comments">
-                        <div class="sin-rattings mb-4">
-                            <div class="star-author-all mb-2 clearfix">
-                                <div class="ratting-author float-start">
-                                    <h5 class="float-start me-3">{{getUser(comment.userId).fullname}}</h5>
-                                    <span>{{comment.date}}</span>
-                                </div>
-                                <div class="ratting-star float-end">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <ng-template [ngIf]="comments.length !== 0">
+          <h3 class="pb-2">Đánh giá sản phẩm ({{comments.length}})</h3>
+          <div class="rattings-wrapper mb-5" *ngFor="let comment of comments">
+            <div class="sin-rattings mb-4">
+              <div class="star-author-all mb-2 clearfix">
+                <div class="ratting-author float-start">
+                  <h5 class="float-start me-3">{{getUser(comment.userId).fullname}}</h5>
+                  <span>{{comment.date}}</span>
+                </div>
+                <div class="ratting-star float-end">
                                     <span class="rating-stars me-2" *ngFor="let e of [].constructor(5); index as index">
                                         <i class="bi bi-star-fill"
-                                            [class]="index < comment.ratingScore ? 'active' : ''"></i>
+                                           [class]="index < comment.ratingScore ? 'active' : ''"></i>
                                     </span>
-                                    <span>({{comment.ratingScore}})</span>
-                                </div>
-                            </div>
-                            <p>{{comment.commentText}}</p>
-                            <div class="btn-group" role="group" *ngIf="comment.userId === userId">
-                                <button (click)="edit($event)" type="button" class="btn btn-primary btn-sm"
-                                    [attr.data-comment-id]="comment.commentId">Sửa</button>
-                                <button (click)="delete($event)" type="button" class="btn btn-danger btn-sm"
-                                    [attr.data-comment-id]="comment.commentId">Xóa</button>
-                            </div>
-                        </div>
-                    </div>
-                </ng-template>
-                <h3 class="pb-2">Thêm đánh giá</h3>
-                <div class="ratting-form-wrapper">
-                    <div class="ratting-form">
-                        <form action="">
-                            <div class="row">
-                                <div class="col-md-3 mb-3">
-                                    <select class="form-select">
-                                        <option disabled selected>Cho sao</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <textarea class="form-control" placeholder="Đánh giá" rows="5"></textarea>
-                                </div>
-                            </div>
-                            <button (click)="create()" type="submit" class="btn btn-primary">Gửi đánh giá</button>
-                        </form>
-                    </div>
+                  <span>({{comment.ratingScore}})</span>
                 </div>
-            </div> <!-- col.// -->
-        </div> <!-- row.// -->
-    </div> <!-- container.//  -->
+              </div>
+              <div>
+                <div *ngIf="comment.commentId != currentEditCommentId; then displayCommentBlock else editBlock">
+                </div>
+                <ng-template #displayCommentBlock>
+                  <p>{{comment.commentText}}
+                  </p>
+                  <div class="btn-group" role="group" *ngIf="comment.userId === userId
+                          && comment.commentId != currentEditCommentId">
+                    <button (click)="edit($event)" type="button" class="btn btn-primary btn-sm"
+                            [attr.data-comment-id]="comment.commentId">Sửa
+                    </button>
+                    <button (click)="delete($event)" type="button" class="btn btn-danger btn-sm"
+                            [attr.data-comment-id]="comment.commentId">Xóa
+                    </button>
+                  </div>
+                </ng-template>
+                <ng-template #editBlock>
+                  <form action="">
+                    <div class="row">
+                      <div class="col-md-3 mb-3">
+                        <select id="edit-ratingScore" class="form-select">
+                          <option disabled selected>Cho sao</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col">
+                        <textarea id="edit-commentText" class="form-control" placeholder="Đánh giá" rows="5"></textarea>
+                      </div>
+                    </div>
+                    <div class="btn-group" role="group">
+                      <button (click)="submitEdit()" type="button" class="btn btn-primary btn-sm">Đăng
+                      </button>
+                      <button (click)="cancelEdit()" type="button" class="btn btn-danger btn-sm">Huỷ
+                      </button>
+                    </div>
+                  </form>
+                </ng-template>
+              </div>
+
+
+            </div>
+          </div>
+        </ng-template>
+        <h3 class="pb-2">Thêm đánh giá</h3>
+        <div class="ratting-form-wrapper">
+          <div class="ratting-form">
+            <form action="">
+              <div class="row">
+                <div class="col-md-3 mb-3">
+                  <select class="form-select">
+                    <option disabled selected>Cho sao</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <textarea class="form-control" placeholder="Đánh giá" rows="5"></textarea>
+                </div>
+              </div>
+              <button (click)="create()" type="submit" id="create-comment" class="btn btn-primary">Gửi đánh giá</button>
+            </form>
+          </div>
+        </div>
+      </div> <!-- col.// -->
+    </div> <!-- row.// -->
+  </div> <!-- container.//  -->
 </section> <!-- section-content.// -->
