@@ -14,7 +14,8 @@ export class CommentComponent implements OnInit {
   public comments: Comment[] = [];
   public userId: number = 0;
   public currentEditCommentId: number = 0;
-  public isEdit: boolean = false;
+  public currentEditCommentRatingScore: number = 0;
+  public currentEditCommentText: string = '';
 
   constructor(
     private commentService: CommentService,
@@ -72,6 +73,8 @@ export class CommentComponent implements OnInit {
 
   public edit(event: any): void {
     this.currentEditCommentId = event.target.dataset.commentId;
+    let cmt = this.commentService.getItemByCommentId(this.currentEditCommentId);
+    this.currentEditCommentText = cmt.commentText;
   }
 
   public submitEdit() {

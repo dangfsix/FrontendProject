@@ -51,7 +51,8 @@
                     </div>
                     <div class="row mb-3">
                       <div class="col">
-                        <textarea id="edit-commentText" class="form-control" placeholder="Đánh giá" rows="5"></textarea>
+                        <textarea id="edit-commentText" class="form-control" placeholder="Đánh giá"
+                                  rows="5">{{currentEditCommentText}}</textarea>
                       </div>
                     </div>
                     <div class="btn-group" role="group">
@@ -86,7 +87,7 @@
               </div>
               <div class="row mb-3">
                 <div class="col">
-                  <textarea  id="create-commentText" class="form-control" placeholder="Đánh giá" rows="5"></textarea>
+                  <textarea id="create-commentText" class="form-control" placeholder="Đánh giá" rows="5"></textarea>
                 </div>
               </div>
               <button (click)="create()" type="submit" id="create-comment" class="btn btn-primary">Gửi đánh giá</button>
