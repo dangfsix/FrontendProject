@@ -34,11 +34,14 @@ export class CommentComponent implements OnInit {
   }
 
   public create(): void {
+    let selectCreate: any = document.getElementById('create-ratingScore');
+    let textareaCreate: any = document.getElementById('create-commentText');
+
     let commentId = Math.round(Math.random() * 10000000000);
     let userId = this.userService.getCurrentUser().id;
     const productId = +this.route.snapshot.params['id'];
-    let ratingScore = document.getElementsByTagName("select")[0].value;
-    let commentText = document.getElementsByTagName("textarea")[0].value;
+    let ratingScore = selectCreate.value;
+    let commentText = textareaCreate.value;
     let date = this.commentService.getDateCreateComment();
 
     let btnCreate: any = document.getElementById('create-comment');

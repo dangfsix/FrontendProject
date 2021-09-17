@@ -74,7 +74,7 @@
             <form action="">
               <div class="row">
                 <div class="col-md-3 mb-3">
-                  <select class="form-select">
+                  <select id="create-ratingScore" class="form-select">
                     <option disabled selected>Cho sao</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -86,7 +86,7 @@
               </div>
               <div class="row mb-3">
                 <div class="col">
-                  <textarea class="form-control" placeholder="Đánh giá" rows="5"></textarea>
+                  <textarea  id="create-commentText" class="form-control" placeholder="Đánh giá" rows="5"></textarea>
                 </div>
               </div>
               <button (click)="create()" type="submit" id="create-comment" class="btn btn-primary">Gửi đánh giá</button>
