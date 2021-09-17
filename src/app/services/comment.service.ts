@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as data from '../../assets/data/comments.json';
-import {Comment} from '../app.interfaces';
+import { Comment } from '../app.interfaces';
 
 @Injectable({
   providedIn: 'root'

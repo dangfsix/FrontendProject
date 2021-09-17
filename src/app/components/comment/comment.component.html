@@ -12,10 +12,9 @@
                   <span>{{comment.date}}</span>
                 </div>
                 <div class="ratting-star float-end">
-                                    <span class="rating-stars me-2" *ngFor="let e of [].constructor(5); index as index">
-                                        <i class="bi bi-star-fill"
-                                           [class]="index < comment.ratingScore ? 'active' : ''"></i>
-                                    </span>
+                  <span class="rating-stars me-2" *ngFor="let e of [].constructor(5); index as index">
+                    <i class="bi bi-star-fill" [class]="index < comment.ratingScore ? 'active' : ''"></i>
+                  </span>
                   <span>({{comment.ratingScore}})</span>
                 </div>
               </div>
@@ -28,10 +27,10 @@
                   <div class="btn-group" role="group" *ngIf="comment.userId === userId
                           && comment.commentId != currentEditCommentId">
                     <button (click)="edit($event)" type="button" class="btn btn-primary btn-sm"
-                            [attr.data-comment-id]="comment.commentId">Sửa
+                      [attr.data-comment-id]="comment.commentId">Sửa
                     </button>
                     <button (click)="delete($event)" type="button" class="btn btn-danger btn-sm"
-                            [attr.data-comment-id]="comment.commentId">Xóa
+                      [attr.data-comment-id]="comment.commentId">Xóa
                     </button>
                   </div>
                 </ng-template>
@@ -52,7 +51,7 @@
                     <div class="row mb-3">
                       <div class="col">
                         <textarea id="edit-commentText" class="form-control" placeholder="Đánh giá"
-                                  rows="5">{{currentEditCommentText}}</textarea>
+                          rows="5">{{currentEditCommentText}}</textarea>
                       </div>
                     </div>
                     <div class="btn-group" role="group">
@@ -64,8 +63,6 @@
                   </form>
                 </ng-template>
               </div>
-
-
             </div>
           </div>
         </ng-template>

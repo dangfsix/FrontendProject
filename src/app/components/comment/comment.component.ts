@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Comment, User} from 'src/app/app.interfaces';
-import {CommentService} from 'src/app/services/comment.service';
-import {UserService} from 'src/app/services/user.service';
-import {ActivatedRoute} from "@angular/router";
+import { Component, Input, OnInit } from '@angular/core';
+import { Comment, User } from 'src/app/app.interfaces';
+import { CommentService } from 'src/app/services/comment.service';
+import { UserService } from 'src/app/services/user.service';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-comment',
@@ -21,8 +21,7 @@ export class CommentComponent implements OnInit {
     private commentService: CommentService,
     private userService: UserService,
     private route: ActivatedRoute,
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
     this.comments = this.commentService.getListByProductId(this.productId);
