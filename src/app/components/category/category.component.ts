@@ -24,6 +24,7 @@ export class CategoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     const categoryId = +this.route.snapshot.params['id'];
     this.category = this.categoryService.getItemById(categoryId);
     this.products = this.productService.getListByCategoryId(categoryId);

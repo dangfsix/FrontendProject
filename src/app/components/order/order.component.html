@@ -24,7 +24,7 @@
                     <header
                         class="card-header text-white bg-{{order.status === 'cancelled' ? 'secondary' : 'primary'}}">
                         <strong class="d-inline-block me-4">Mã đơn hàng: {{order.id}}</strong>
-                        <span class="me-4">Ngày mua: {{order.buyDate}}</span>
+                        <span class="me-4">Ngày mua: {{order.buyDate | date: 'H:m:s dd/MM/yyyy'}}</span>
                         <span class="float-end">{{order.status === 'cancelled' ? 'Đã hủy' : 'Đang chờ'}}</span>
                     </header> <!-- card-header.// -->
 
