@@ -10,7 +10,7 @@ Angular CLI v12.0.3
 1. Dùng GitHub Desktop clone repo về máy
 2. Mở thư mục repo FrontendProject → Chạy cmd
 3. `npm install`
-4. `ng serve --open`
+4. `npm start`
 
 # FrontendProject
 
